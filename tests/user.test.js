@@ -1,7 +1,7 @@
-const app = require('../src/app');
+ const app = require('../src/app');
 const request = require('supertest');
 const User = require('../src/models/user');
-const { userOneId, userTwoId, userThreeId, setupDatabase, userOne, userTwo, userThree } = require('../tests/fixtures/db')
+const { userOneId, userTwoId,setupDatabase, userOne, userTwo } = require('../tests/fixtures/db')
 
 
 //Setting up the database before each unit test
@@ -237,6 +237,6 @@ test('update background picture', async () => {
         .expect(200)
     //Assert the update on the database
     //const user = await User.findById(userOneId)
-    //verification
+    //verification 
 })
 

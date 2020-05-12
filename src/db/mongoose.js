@@ -6,10 +6,8 @@ mongoose.connect(process.env.MONGODB_URL, {
     useUnifiedTopology: true
 })
 
+
 //console.log('Database connected successfully');
-
-
-
-//mongod --dbpath /home/anis/Desktop/mongoDev/data/db  init server command
+//mongod --dbpath /home/anis/Desktop/mongoDev/data/db  init server command     --> automated start .Boss
 
 
