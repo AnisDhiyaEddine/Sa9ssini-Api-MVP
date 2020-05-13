@@ -1,7 +1,7 @@
  const app = require('../src/app');
 const request = require('supertest');
 const User = require('../src/models/user');
-const { userOneId, userTwoId,setupDatabase, userOne, userTwo } = require('../tests/fixtures/db')
+const { userOneId, userTwoId, githubUserID,linkedinUserID, setupDatabase, userOne, userTwo, githubUser,linkedinUser, skillId } = require('../tests/fixtures/db')
 
 
 //Setting up the database before each unit test
@@ -12,14 +12,13 @@ beforeEach(
 
 //Testing the signup unit
 //----------------------------------------------------------
-
 test('Signup a new user', async () => {
     const usertest = {
         userName: "Test UserName",
         email: "test@gmail.com",
         password: "testHashed"
     }
-    const response = await request(app).post('/users').send(usertest).expect(201);
+    const response = await request(app).post('/auth').send(usertest).expect(201);
 
 
     //Assert that the database was updated
@@ -44,7 +43,7 @@ test('Signup a new user', async () => {
 //Login 
 
 test('login a user', async () => {
-    const response = await request(app).post('/users/login').send({
+    const response = await request(app).post('/auth/login').send({
         email: userOne.email,
         password: userOne.password
     }).expect(200);
@@ -59,7 +58,7 @@ test('login a user', async () => {
 
 //Login fails
 test('login failure', async () => {
-    await request(app).post('/users/login').send({
+    await request(app).post('/auth/login').send({
         email: "failed@gmail.com",
         password: "randomizeOOO"
     }).expect(400);
@@ -70,12 +69,12 @@ test('login failure', async () => {
 
 
 
-
+ 
 //testing the logout unit
 //----------------------------------------------------------
 
 test('simple logout', async () => {
-    const response = await request(app).post('/users/logout')
+    const response = await request(app).post('/auth/logout')
         .set("Authorization", `Bearer ${userOne.tokens[0].token}`).send().expect(200)
 
     const user = await User.findById({ _id: response.body._id })
@@ -86,14 +85,13 @@ test('simple logout', async () => {
 
 
 test('logout all', async () => {
-    const response = await request(app).post('/users/logoutAll')
+    const response = await request(app).post('/auth/logoutAll')
         .set("Authorization", `Bearer ${userTwo.tokens[0].token}`).send().expect(200);
 
     //assertion that the database is updated
     const user = await User.findById({ _id: response.body._id })
     expect(user.tokens.length).toEqual(0);
 })
-
 
 
 

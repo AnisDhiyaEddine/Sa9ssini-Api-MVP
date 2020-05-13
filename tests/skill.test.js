@@ -2,7 +2,7 @@ const app = require('../src/app');
 const request = require('supertest');
 const User = require('../src/models/user');
 const Skill = require('../src/models/skill')
-const { userOneId, userTwoId, userThreeId, setupDatabase, userOne, userTwo, userThree, skillId, skill } = require('../tests/fixtures/db')
+const { userOneId, userTwoId, githubUserID,linkedinUserID, setupDatabase, userOne, userTwo, githubUser,linkedinUser, skillId } = require('../tests/fixtures/db')
 
 
 

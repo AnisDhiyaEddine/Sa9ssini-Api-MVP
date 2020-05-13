@@ -1,6 +1,9 @@
 const router = require("express").Router();
 const passport = require("passport");
 const auth = require("../middlware/auth");
+const User = require('../models/user')
+const { join } = require("path");
+const sharp = require("sharp");
 
 //Basiclly SignUp
 router.post("/", async (req, res) => {
@@ -58,10 +61,11 @@ router.post("/login", async (req, res) => {
 
 //Logout
 router.post("/logout", auth, async (req, res) => {
-  try {
+  try { 
+
     //check if the connection was established by third party service
     if (req.user.githubId || req.user.linkedinId) {
-      passport.logout();
+      req.logout();
       res.status(200).send(req.user);
     } else {
       req.user.tokens = req.user.tokens.filter(
@@ -79,7 +83,6 @@ router.post("/logout", auth, async (req, res) => {
 router.post("/logoutAll", auth, async (req, res) => {
   try {
     //we don't need to know connection src 
-    passport.logout()
     req.user.tokens = [];
     await req.user.save();
     res.send(req.user);
