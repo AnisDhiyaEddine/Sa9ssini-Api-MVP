@@ -12,7 +12,7 @@ beforeEach(
 )
 
 
-//Add skill unit  
+//Add skill unit   
 //-------------------------------------------------------------------------------
 test('Add a skill', async () => {
     const response = await request(app).post('/skills')

@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "env-cmd -f ./config/dev.env nodemon src/index.js",
+    "server": "env-cmd -f ./config/dev.env nodemon src/index.js",
+    "client":"parcel ./client/index.html",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
     "test": "env-cmd -f ./config/test.env jest --watch --runInBand"
   },
   "jest": {
@@ -16,6 +18,7 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^3.0.7",
+    "concurrently": "^5.2.0",
     "cookie-session": "^1.4.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
@@ -24,9 +27,9 @@
     "nodemailer": "^6.4.4",
     "passport": "^0.4.1",
     "passport-github": "^1.1.0",
-    "passport-instagram": "^1.0.0",
     "passport-linkedin": "^1.0.0",
     "passport-linkedin-oauth2": "^2.0.0",
+    "puppeteer": "^3.1.0",
     "sharp": "^0.25.2",
     "validator": "^10.11.0"
   },
