@@ -3,8 +3,8 @@ const User = require('../models/user');
 
 const auth = async (req, res, next) => {
     try {
-
         if(req.user){
+            console.log('OAuth succed')
             next()
         }else{
         let user;

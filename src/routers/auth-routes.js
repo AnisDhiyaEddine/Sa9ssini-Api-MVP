@@ -6,7 +6,7 @@ const { join } = require("path");
 const sharp = require("sharp");
 
 //Basiclly SignUp
-router.post("/", async (req, res) => {
+router.post("/auth/", async (req, res) => {
   const user = new User(req.body);
   const profileDist = join(__dirname, "../helpers/default_avatar.jpg");
   const backgroundDist = join(__dirname, "../helpers/background.jpeg");
@@ -45,7 +45,7 @@ router.post("/", async (req, res) => {
 //Done ...
 
 //Login
-router.post("/login", async (req, res) => {
+router.post("/auth/login", async (req, res) => {
   try {
     const user = await User.findBycredentials(
       req.body.email,
@@ -60,7 +60,7 @@ router.post("/login", async (req, res) => {
 });
 
 //Logout
-router.post("/logout", auth, async (req, res) => {
+router.post("/auth/logout", auth, async (req, res) => {
   try { 
 
     //check if the connection was established by third party service
@@ -80,7 +80,7 @@ router.post("/logout", auth, async (req, res) => {
   }
 });
 
-router.post("/logoutAll", auth, async (req, res) => {
+router.post("/auth/logoutAll", auth, async (req, res) => {
   try {
     //we don't need to know connection src 
     req.user.tokens = [];
@@ -93,20 +93,21 @@ router.post("/logoutAll", auth, async (req, res) => {
 
 // auth with github
 router.get(
-  "/github",
+  "/auth/github",
   passport.authenticate("github", {
     scope: ["profile", "'user:email"],
-  })
+  }) 
 );
 
 // callback route for github to redirect to
-router.get("/github/redirect", passport.authenticate("github"), (req, res) => {
-  res.send(req.user);
+router.get("/auth/github/redirect", passport.authenticate("github"), (req, res) => {
+  res.send({user : req.user})
+  //simple use res.send(req.user)
 });
 
 // auth with linkedin
 router.get(
-  "/linkedin",
+  "/auth/linkedin",
   passport.authenticate("linkedin", {
     scope: ["r_liteprofile"],
   })
@@ -114,10 +115,12 @@ router.get(
 
 // callback route for linkedin to redirect to
 router.get(
-  "/linkedin/redirect",
+  "/auth/linkedin/redirect",
   passport.authenticate("linkedin"),
   (req, res) => {
-    res.send(req.user);
+    res.send({user :req.user})
+    //simple use res.send(req.user)
+ 
   }
 );
 

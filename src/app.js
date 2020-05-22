@@ -9,7 +9,6 @@ const authRouter = require("./routers/auth-routes");
 const cookieSession = require("cookie-session");
 const passport = require("passport");
 const passportSetup = require("./services/passport-setup");
-
 app.use(express.json()); //Incoming requests are objects ...  function
 
 app.use(
@@ -23,9 +22,13 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use("/auth", authRouter);
+app.use(authRouter);
 app.use(userRouter);
 app.use(skillRouter);
 app.use(historyRouter);
 
+app.get("/", (req, res) => {
+  console.log(req.user)
+  res.send("<h1> Hello and welcome </h1>");
+});
 module.exports = app;

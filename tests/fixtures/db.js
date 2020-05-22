@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const User = require("../../src/models/user");
 const Skill = require("../../src/models/skill");
-
+const puppeteer = require("puppeteer");
 const userOneId = new mongoose.Types.ObjectId();
 const userTwoId = new mongoose.Types.ObjectId();
 const githubUserID = new mongoose.Types.ObjectId();
@@ -69,19 +69,15 @@ const setupDatabase = async () => {
   await Skill.deleteMany();
   await new User(userOne).save();
   await new User(userTwo).save();
-
   await new Skill(skill).save();
 };
 
 const setupDatabaseOAuth = async () => {
   await User.deleteMany();
   await Skill.deleteMany();
-
   await new User(githubUser).save();
-  await new User(linkedinUser).save();
 
-  await new Skill(skill).save();
-};
+}; 
 
 module.exports = {
   userOneId,
