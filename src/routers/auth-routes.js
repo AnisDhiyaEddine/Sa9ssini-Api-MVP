@@ -1,12 +1,16 @@
 const router = require("express").Router();
 const passport = require("passport");
 const auth = require("../middlware/auth");
-const User = require('../models/user')
+const User = require("../models/user");
 const { join } = require("path");
 const sharp = require("sharp");
 
+router.get("/auth", async (req, res) => {
+  res.render("authenticate");
+});
+
 //Basiclly SignUp
-router.post("/auth/", async (req, res) => {
+router.post("/auth/signup", async (req, res) => {
   const user = new User(req.body);
   const profileDist = join(__dirname, "../helpers/default_avatar.jpg");
   const backgroundDist = join(__dirname, "../helpers/background.jpeg");
@@ -61,8 +65,7 @@ router.post("/auth/login", async (req, res) => {
 
 //Logout
 router.post("/auth/logout", auth, async (req, res) => {
-  try { 
-
+  try {
     //check if the connection was established by third party service
     if (req.user.githubId || req.user.linkedinId) {
       req.logout();
@@ -82,7 +85,7 @@ router.post("/auth/logout", auth, async (req, res) => {
 
 router.post("/auth/logoutAll", auth, async (req, res) => {
   try {
-    //we don't need to know connection src 
+    //we don't need to know connection src
     req.user.tokens = [];
     await req.user.save();
     res.send(req.user);
@@ -96,14 +99,17 @@ router.get(
   "/auth/github",
   passport.authenticate("github", {
     scope: ["profile", "'user:email"],
-  }) 
+  })
 );
 
 // callback route for github to redirect to
-router.get("/auth/github/redirect", passport.authenticate("github"), (req, res) => {
-  res.send({user : req.user})
-  //simple use res.send(req.user)
-});
+router.get(
+  "/auth/github/redirect",
+  passport.authenticate("github"),
+  (req, res) => {
+    res.redirect("/users/me");
+  }
+);
 
 // auth with linkedin
 router.get(
@@ -118,9 +124,8 @@ router.get(
   "/auth/linkedin/redirect",
   passport.authenticate("linkedin"),
   (req, res) => {
-    res.send({user :req.user})
+    res.redirect("/users/me");
     //simple use res.send(req.user)
- 
   }
 );
 

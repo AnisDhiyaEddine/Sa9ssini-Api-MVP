@@ -53,13 +53,13 @@ afterEach(async () => {
 
 //testing the login unit
 //----------------------------------------------------------
- 
+  
 //----------------------------------------------------------
   
 test("simple logout", async () => {
  const response = await request(app).post("/auth/logout").send().expect(200);
 });
-/*
+/*  
 //testing the getUser unit
 //----------------------------------------------------------
 

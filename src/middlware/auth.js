@@ -2,9 +2,9 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
 const auth = async (req, res, next) => {
+    console.log(req.user)
     try {
-        if(req.user){
-            console.log('OAuth succed')
+        if(req.user){ 
             next()
         }else{
         let user;
