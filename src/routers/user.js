@@ -14,8 +14,7 @@ const uploadPhoto = require("../middlware/uploadPhoto");
 
 //get your profile
 router.get("/users/me", auth, async (req, res) => {
-  res.send(req.user);
-});
+  res.render("profile",{user:req.user})});
 
 //get other user profile
 router.get("/users/:id", auth, async (req, res) => {

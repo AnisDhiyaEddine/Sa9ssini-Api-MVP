@@ -2,10 +2,11 @@ const puppeteer = require("puppeteer");
 const sessionFactory = require("./factories/sessionFactory");
 const userFactory = require("./factories/userFactory");
 const skillFactory = require("./factories/skillFactory");
+const databaseSetupFactory = require("./factories/databaseSetupFactory");
 const app = require("../src/app");
 const request = require("supertest");
 const User = require("../src/models/user");
-
+const Page = require("./helpers/page");
 
 const {
   userOneId,
@@ -19,35 +20,16 @@ const {
 } = userFactory;
 
 const { skillId, skill } = skillFactory;
-const { setupDatabase } = require("./factories/databaseSetupFactory");
-
-let page, browser;
-/*
+const { setupDatabaseOAuth } = databaseSetupFactory;
+let page;
 beforeEach(async () => {
+  page = await Page.build();
   setupDatabaseOAuth();
-  browser = await puppeteer.launch({ headless: false });
-  page = await browser.newPage();
-
-  const { sessionStr, sig } = await sessionFactory(userFactory.githubUserID);
-  //I need sessioStr and sig
-  await page.setCookie({
-    name: "session",
-    value: sessionStr,
-    domain: "localhost:3000",
-  });
-  await page.setCookie({
-    name: "session.sig",
-    value: sig,
-    domain: "localhost:3000",
-  });
-
-  await page.goto("localhost:3000");
 });
 
 afterEach(async () => {
-  await browser.close();
+ // await page.close();
 });
-*/
 //Setting up the database before each unit test
 
 //testing the login unit
@@ -56,5 +38,6 @@ afterEach(async () => {
 //----------------------------------------------------------
 
 test("fake session setup", async () => {
-  console.log("hello and welcome");
+  await page.login();
+  const response = await request(app).get("/users/me");
 });

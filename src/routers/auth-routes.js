@@ -57,7 +57,7 @@ router.post("/auth/login", async (req, res) => {
     );
     const token = await user.generateAuthToken();
     await user.save();
-    res.send({ user, token });
+    res.render("profile",{ user, token });
   } catch (error) {
     res.status(400).send({ error: "Unable to login" });
   }
@@ -107,7 +107,7 @@ router.get(
   "/auth/github/redirect",
   passport.authenticate("github"),
   (req, res) => {
-    res.redirect("/users/me");
+    res.redirect("http://localhost:1234/src/markup/profile.html");
   }
 );
 
@@ -124,7 +124,7 @@ router.get(
   "/auth/linkedin/redirect",
   passport.authenticate("linkedin"),
   (req, res) => {
-    res.redirect("/users/me");
+    res.redirect("http://localhost:1234/src/markup/profile.html",);
     //simple use res.send(req.user)
   }
 );
