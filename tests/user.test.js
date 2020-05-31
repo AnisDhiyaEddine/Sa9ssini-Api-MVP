@@ -1,24 +1,25 @@
 const app = require("../src/app");
 const request = require("supertest");
 const User = require("../src/models/user");
+const userFactory = require("./factories/userFactory");
+const skillFactory = require("./factories/skillFactory");
+
 const {
   userOneId,
   userTwoId,
   githubUserID,
   linkedinUserID,
-  setupDatabase,
   userOne,
   userTwo,
   githubUser,
   linkedinUser,
-  skillId,
-} = require("../tests/fixtures/db");
+} = userFactory;
 
-test("userSuite" , ()=>{
-  
-})
+const { skillId, skill } = skillFactory;
+const { setupDatabase } = require("./factories/databaseSetupFactory");
 
-/*
+test("userSuite", () => {});
+
 //Setting up the database before each unit test
 beforeEach(setupDatabase)
 
@@ -30,7 +31,7 @@ test("Signup a new user", async () => {
     email: "test@gmail.com",
     password: "testHashed",
   };
-  const response = await request(app).post("/auth/").send(usertest).expect(201);
+  const response = await request(app).post("/auth/signup").send(usertest).expect(201);
 
   //Assert that the database was updated
   const user = await User.findById(response.body.user._id);
@@ -46,7 +47,7 @@ test("Signup a new user", async () => {
   });
   expect(user.password).not.toBe("AnisBoudiaf");
 });
-/*
+
 //testing the login unit
 //----------------------------------------------------------
  
@@ -250,4 +251,3 @@ test("update background picture", async () => {
   //const user = await User.findById(userOneId)
   //verification
 });
-*/

@@ -238,4 +238,7 @@ router.get("/users/:id/backgroundPicture", auth, async (req, res) => {
   res.send(backgroundPict);
 });
 
+
+
 module.exports = router;
+ 

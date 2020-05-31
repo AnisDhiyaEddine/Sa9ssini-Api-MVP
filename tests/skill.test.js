@@ -1,15 +1,26 @@
-const app = require('../src/app');
-const request = require('supertest');
-const User = require('../src/models/user');
-const Skill = require('../src/models/skill')
-const { userOneId, userTwoId, githubUserID,linkedinUserID, setupDatabase, userOne, userTwo, githubUser,linkedinUser, skillId } = require('../tests/fixtures/db')
+const app = require("../src/app");
+const request = require("supertest");
+const User = require("../src/models/user");
+const Skill = require("../src/models/skill");
+const userFactory = require("./factories/userFactory");
+const skillFactory = require("./factories/skillFactory");
 
+const {
+  userOneId,
+  userTwoId,
+  githubUserID,
+  linkedinUserID,
+  userOne,
+  userTwo,
+  githubUser,
+  linkedinUser,
+} = userFactory;
 
-test("skillSuite" , ()=>{
-  
-})
+const { skillId, skill } = skillFactory;
+const { setupDatabase } = require("./factories/databaseSetupFactory");
 
-/*
+test("skillSuite", () => {});
+
 //Setting up the database before each unit test
 beforeEach(
     setupDatabase
@@ -119,4 +130,3 @@ test('get skill', async () => {
 
     //Visualisation ...    checked
 })
-*/
