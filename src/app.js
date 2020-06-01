@@ -31,8 +31,4 @@ app.use(historyRouter);
 app.set('view engine', 'html');
 app.engine('html', require('hbs').__express);
 
-app.get("/", (req, res) => {
-  console.log(req.user)
-  res.render("home")
-});
 module.exports = app;

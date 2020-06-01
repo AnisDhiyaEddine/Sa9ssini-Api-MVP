@@ -10,11 +10,10 @@ const sharp = require("sharp");
 
 const uploadPhoto = require("../middlware/uploadPhoto");
 
-
-
 //get your profile
 router.get("/users/me", auth, async (req, res) => {
-  res.render("profile",{user:req.user})});
+  res.send({ user: req.user });
+});
 
 //get other user profile
 router.get("/users/:id", auth, async (req, res) => {
@@ -48,7 +47,7 @@ router.delete("/users/me", auth, async (req, res) => {
   try {
     await req.user.remove();
     //Send cancelation email
-    mail.sendCancelationEmail(req.user);
+    //mail.sendCancelationEmail(req.user);
     res.send(req.user);
   } catch (error) {
     res.status(500).send();
@@ -237,7 +236,4 @@ router.get("/users/:id/backgroundPicture", auth, async (req, res) => {
   res.send(backgroundPict);
 });
 
-
-
 module.exports = router;
- 

@@ -2611,7 +2611,52 @@ module.exports.default = axios;
 
 },{"./utils":"node_modules/axios/lib/utils.js","./helpers/bind":"node_modules/axios/lib/helpers/bind.js","./core/Axios":"node_modules/axios/lib/core/Axios.js","./core/mergeConfig":"node_modules/axios/lib/core/mergeConfig.js","./defaults":"node_modules/axios/lib/defaults.js","./cancel/Cancel":"node_modules/axios/lib/cancel/Cancel.js","./cancel/CancelToken":"node_modules/axios/lib/cancel/CancelToken.js","./cancel/isCancel":"node_modules/axios/lib/cancel/isCancel.js","./helpers/spread":"node_modules/axios/lib/helpers/spread.js"}],"node_modules/axios/index.js":[function(require,module,exports) {
 module.exports = require('./lib/axios');
-},{"./lib/axios":"node_modules/axios/lib/axios.js"}],"src/scripts/getUserInfo.js":[function(require,module,exports) {
+},{"./lib/axios":"node_modules/axios/lib/axios.js"}],"src/scripts/config.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.remove = exports.patch = exports.get = exports.post = void 0;
+
+var axios = require("axios");
+
+var corsOrigin = "deployment url"; //disabled for testing
+
+var baseUrl = "http://localhost:3000/";
+var post = axios.create({
+  method: "POST",
+  baseURL: "".concat(baseUrl),
+  headers: {
+    Authorization: localStorage.getItem("Auth") ? localStorage.getItem("Auth") : null
+  }
+});
+exports.post = post;
+var get = axios.create({
+  method: "GET",
+  baseURL: "".concat(baseUrl),
+  headers: {
+    Authorization: localStorage.getItem("Auth") ? localStorage.getItem("Auth") : null
+  }
+});
+exports.get = get;
+var patch = axios.create({
+  method: "PATCH",
+  baseURL: "".concat(baseUrl),
+  headers: {
+    Authorization: localStorage.getItem("Auth") ? localStorage.getItem("Auth") : null
+  }
+});
+exports.patch = patch;
+var remove = axios.create({
+  method: "DELETE",
+  baseURL: "".concat(baseUrl),
+  headers: {
+    Authorization: localStorage.getItem("Auth") ? localStorage.getItem("Auth") : null
+  }
+});
+exports.remove = remove;
+},{"axios":"node_modules/axios/index.js"}],"src/scripts/user/getUser.js":[function(require,module,exports) {
 "use strict";
 
 require("regenerator-runtime/runtime");
@@ -2620,57 +2665,221 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-var axios = require("axios");
+var _require = require("../config"),
+    get = _require.get;
 
-console.log("trying !");
+module.exports = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+  var _yield$get, data;
 
-var getUser = /*#__PURE__*/function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-    var response;
+  return regeneratorRuntime.wrap(function _callee$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.prev = 0;
+          _context.next = 3;
+          return get({
+            url: "/users/me"
+          });
+
+        case 3:
+          _yield$get = _context.sent;
+          data = _yield$get.data;
+          console.log(data);
+          return _context.abrupt("return", data);
+
+        case 9:
+          _context.prev = 9;
+          _context.t0 = _context["catch"](0);
+          console.log(_context.t0);
+
+        case 12:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, _callee, null, [[0, 9]]);
+})); //Response form
+
+var response = {
+  gender: "male",
+  _id: "5eb02f4b7fb70f001786414f",
+  userName: "lomi",
+  email: "k.mario@mail.com",
+  imgUrl: "https://saqsini-api.herokuapp.com/users/5eb02f4b7fb70f001786414f/profilePicture",
+  backgroundUrl: "https://saqsini-api.herokuapp.com/users/5eb02f4b7fb70f001786414f/backgroundPicture",
+  createdAt: "2020-05-04T15:05:47.344Z",
+  updatedAt: "2020-05-05T09:10:03.216Z"
+};
+var ResponseLinkedinAuth = {
+  createdAt: "2020-06-01T11:25:24.020Z",
+  gender: "not specific",
+  imgUrl: "urn:li:digitalmediaAsset:C5603AQGCjpxlw79pyQ",
+  linkedinId: "6_14g8bKD1",
+  updatedAt: "2020-06-01T11:25:24.020Z",
+  userName: "Boudiaf Anis DHIYA EDDINE",
+  __v: 0,
+  _id: "5ed4e5a4d1202b2c033e22df"
+};
+var responseGithubAuth = {
+  _id: "5ed3e108db9a599d64b89df5",
+  gender: "not specific",
+  userName: "AnisDhiyaEddine",
+  githubId: "45804461",
+  tokens: [],
+  createdAt: "2020-05-31T16:53:28.508Z",
+  updatedAt: "2020-05-31T16:53:28.508Z",
+  __v: 0
+};
+},{"regenerator-runtime/runtime":"node_modules/regenerator-runtime/runtime.js","../config":"src/scripts/config.js"}],"src/scripts/user/deleteProfile.js":[function(require,module,exports) {
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var _require = require("../config"),
+    remove = _require.remove;
+
+module.exports = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+  var _yield$remove, data;
+
+  return regeneratorRuntime.wrap(function _callee$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.prev = 0;
+          _context.next = 3;
+          return remove({
+            url: "users/me"
+          });
+
+        case 3:
+          _yield$remove = _context.sent;
+          data = _yield$remove.data;
+          return _context.abrupt("return", data);
+
+        case 8:
+          _context.prev = 8;
+          _context.t0 = _context["catch"](0);
+          console.log(_context.t0);
+
+        case 11:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, _callee, null, [[0, 8]]);
+})); //THE response of deleteProfile 
+//The response is a promise ***
+
+var response = {
+  gender: "not specific",
+  _id: "5eb02f4b7fb70f001786414f",
+  userName: "lomi",
+  email: "k.mario@mail.com",
+  imgUrl: "https://saqsini-api.herokuapp.com/users/5eb02f4b7fb70f001786414f/profilePicture",
+  backgroundUrl: "https://saqsini-api.herokuapp.com/users/5eb02f4b7fb70f001786414f/backgroundPicture",
+  createdAt: "2020-05-04T15:05:47.344Z",
+  updatedAt: "2020-05-05T09:10:03.216Z"
+};
+var ResponseLinkedinAuth = {
+  createdAt: "2020-06-01T11:25:24.020Z",
+  gender: "not specific",
+  imgUrl: "urn:li:digitalmediaAsset:C5603AQGCjpxlw79pyQ",
+  linkedinId: "6_14g8bKD1",
+  updatedAt: "2020-06-01T11:25:24.020Z",
+  userName: "Boudiaf Anis DHIYA EDDINE",
+  __v: 0,
+  _id: "5ed4e5a4d1202b2c033e22df"
+};
+var responseGithubAuth = {
+  _id: "5ed3e108db9a599d64b89df5",
+  gender: "not specific",
+  userName: "AnisDhiyaEddine",
+  githubId: "45804461",
+  tokens: [],
+  createdAt: "2020-05-31T16:53:28.508Z",
+  updatedAt: "2020-05-31T16:53:28.508Z",
+  __v: 0
+};
+},{"../config":"src/scripts/config.js"}],"src/scripts/user/signup.js":[function(require,module,exports) {
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var _require = require('../config'),
+    post = _require.post;
+
+module.exports = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(userName, email, password) {
+    var _yield$post, data;
+
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             _context.prev = 0;
             _context.next = 3;
-            return axios.get("http://localhost:3000/users/me");
+            return post({
+              url: '/auth/signup',
+              data: {
+                userName: userName,
+                email: email,
+                password: password
+              }
+            });
 
           case 3:
-            response = _context.sent;
-            console.log(response);
-            _context.next = 10;
-            break;
+            _yield$post = _context.sent;
+            data = _yield$post.data;
+            localStorage.setItem('Auth', "Bearer ".concat(data.token));
+            return _context.abrupt("return", data);
 
-          case 7:
-            _context.prev = 7;
+          case 9:
+            _context.prev = 9;
             _context.t0 = _context["catch"](0);
             console.log(_context.t0);
 
-          case 10:
+          case 12:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[0, 7]]);
+    }, _callee, null, [[0, 9]]);
   }));
 
-  return function getUser() {
+  return function (_x, _x2, _x3) {
     return _ref.apply(this, arguments);
   };
-}();
+}(); //the RESPONSE OF signup
 
-module.exports = getUser;
-},{"axios":"node_modules/axios/index.js","regenerator-runtime/runtime":"node_modules/regenerator-runtime/runtime.js"}],"index.js":[function(require,module,exports) {
+
+var response = {
+  user: {
+    gender: "not specific",
+    _id: "5eb12a9bf49655211b63c4d2",
+    userName: "lomi",
+    email: "s.mario@mail.com",
+    imgUrl: "https://saqsini-api.herokuapp.com/users/5eb12a9bf49655211b63c4d2/profilePicture",
+    backgroundUrl: "https://saqsini-api.herokuapp.com/users/5eb12a9bf49655211b63c4d2/backgroundPicture",
+    createdAt: "2020-05-05T08:58:03.747Z",
+    updatedAt: "2020-05-05T08:58:03.747Z",
+    __v: 0
+  },
+  token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZWIxMmE5YmY0OTY1NTIxMWI2M2M0ZDIiLCJpYXQiOjE1ODg2NjkwODN9.nxx1sEO2yw52txvn4PlaC3qP27NkhC1tya6XqwQYDmY"
+};
+},{"../config":"src/scripts/config.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 require("regenerator-runtime/runtime");
 
 console.log("hello and welcome Anis");
 
-var getUser = require('./src/scripts/getUserInfo');
+var getUser = require("./src/scripts/user/getUser"); //delete profile returns a promise .. consume it
 
-getUser();
-},{"regenerator-runtime/runtime":"node_modules/regenerator-runtime/runtime.js","./src/scripts/getUserInfo":"src/scripts/getUserInfo.js"}],"../../../../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+
+var deleteProfile = require("./src/scripts/user/deleteProfile");
+
+var signup = require("./src/scripts/user/signup"); //signup("AnisDhiyaEddine","dhiaeboudiaf@gmail.com","hello hello")
+},{"regenerator-runtime/runtime":"node_modules/regenerator-runtime/runtime.js","./src/scripts/user/getUser":"src/scripts/user/getUser.js","./src/scripts/user/deleteProfile":"src/scripts/user/deleteProfile.js","./src/scripts/user/signup":"src/scripts/user/signup.js"}],"../../../../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -2698,7 +2907,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46031" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46665" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
