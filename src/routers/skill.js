@@ -19,6 +19,7 @@ router.post('/skills', auth, async (req, res) => {
         await skill.save();
         res.status(201).send(skill);
     } catch (error) {
+        console.log(error)
         res.status(400).send(error);
     }
 })

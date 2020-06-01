@@ -2619,9 +2619,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.remove = exports.patch = exports.get = exports.post = void 0;
 
-var axios = require("axios");
+var axios = require("axios"); //const corsOrigin = "http://localhost:1234"; //disabled for testing
 
-var corsOrigin = "deployment url"; //disabled for testing
 
 var baseUrl = "http://localhost:3000/";
 var post = axios.create({
@@ -2655,6 +2654,11 @@ var remove = axios.create({
     Authorization: localStorage.getItem("Auth") ? localStorage.getItem("Auth") : null
   }
 });
+/*
+//Before fixing cors probleme disable web-security tempo
+google-chrome  --user-data-dir=”/var/tmp/Chrome” --disable-web-security
+*/
+
 exports.remove = remove;
 },{"axios":"node_modules/axios/index.js"}],"src/scripts/user/getOwnProfile.js":[function(require,module,exports) {
 "use strict";
@@ -3339,6 +3343,403 @@ var responseGithubAuth = {
   updatedAt: "2020-05-31T16:53:28.508Z",
   __v: 0
 };
+},{"../config":"src/scripts/config.js"}],"src/scripts/skills/addSkill.js":[function(require,module,exports) {
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var _require = require("../config"),
+    post = _require.post;
+
+module.exports = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(skill, description) {
+    var _yield$post, data;
+
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return post({
+              url: "/skills",
+              data: {
+                skill: skill,
+                description: description
+              }
+            });
+
+          case 2:
+            _yield$post = _context.sent;
+            data = _yield$post.data;
+            return _context.abrupt("return", data);
+
+          case 5:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+}(); //THE RESPONSE of rateSkill
+
+
+var response = {
+  _id: "5eb0466c9a16ea00176c9aae",
+  skill: "coding",
+  description: "mrid ta3 chorba",
+  owner: {
+    _id: "5eaf0049e241b400179fcb9c",
+    userName: "malibu",
+    imgUrl: "https://saqsini-api.herokuapp.com/users/5eaf0049e241b400179fcb9c/profilePicture"
+  },
+  createdAt: "2020-05-04T16:44:28.676Z",
+  updatedAt: "2020-05-04T16:45:15.435Z",
+  __v: 1,
+  evaluation: 0 //evaluation represente la moyenne genrale attribué par les utilisateurs
+
+};
+},{"../config":"src/scripts/config.js"}],"src/scripts/skills/deleteSkill.js":[function(require,module,exports) {
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var _require = require("../config"),
+    remove = _require.remove;
+
+module.exports = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(skill_id) {
+    var _yield$remove, data;
+
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return remove({
+              url: "/skills/".concat(skill_id)
+            });
+
+          case 2:
+            _yield$remove = _context.sent;
+            data = _yield$remove.data;
+            return _context.abrupt("return", data);
+
+          case 5:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x) {
+    return _ref.apply(this, arguments);
+  };
+}(); //THE RESPONSE OF deleteSkill
+//
+
+
+var response = {
+  _id: "5eb0466c9a16ea00176c9aae",
+  skill: "coding",
+  description: "mrid ta3 chorba",
+  owner: {
+    _id: "5eaf0049e241b400179fcb9c",
+    userName: "malibu",
+    imgUrl: "https://saqsini-api.herokuapp.com/users/5eaf0049e241b400179fcb9c/profilePicture"
+  },
+  createdAt: "2020-05-04T16:44:28.676Z",
+  updatedAt: "2020-05-04T16:45:15.435Z",
+  __v: 1,
+  evaluation: 7.2 //evaluation represente la moyenne genrale attribué par les utilisateurs
+
+};
+},{"../config":"src/scripts/config.js"}],"src/scripts/skills/getMySkills.js":[function(require,module,exports) {
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var _require = require("../config"),
+    get = _require.get;
+
+module.exports = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+  var _yield$get, data;
+
+  return regeneratorRuntime.wrap(function _callee$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return get({
+            url: "/skills/me"
+          });
+
+        case 2:
+          _yield$get = _context.sent;
+          data = _yield$get.data;
+          return _context.abrupt("return", data);
+
+        case 5:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, _callee);
+})); //THE response of geMySkills
+//array of skills
+
+var response = [{
+  _id: "5eb045309a16ea00176c9aa4",
+  skill: "moraba",
+  description: "JaaaNn had chir !!",
+  createdAt: "2020-05-04T16:39:12.739Z",
+  updatedAt: "2020-05-04T16:39:12.739Z"
+}, {
+  _id: "5eb045309a16ea00176c9aa4",
+  skill: "moraba",
+  description: "JaaaNn had chir !!",
+  createdAt: "2020-05-04T16:39:12.739Z",
+  updatedAt: "2020-05-04T16:39:12.739Z"
+}];
+},{"../config":"src/scripts/config.js"}],"src/scripts/skills/getOthersSkills.js":[function(require,module,exports) {
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var _require = require("../config"),
+    get = _require.get;
+
+module.exports = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(user_id) {
+    var _yield$get, data;
+
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return get({
+              url: "/skills/user/".concat(user_id)
+            });
+
+          case 2:
+            _yield$get = _context.sent;
+            data = _yield$get.data;
+            return _context.abrupt("return", data);
+
+          case 5:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x) {
+    return _ref.apply(this, arguments);
+  };
+}(); //THE response of getOhersSkills
+//array of skills
+
+
+var response = [{
+  _id: "5eb045309a16ea00176c9aa4",
+  skill: "moraba",
+  description: "JaaaNn had chir !!",
+  createdAt: "2020-05-04T16:39:12.739Z",
+  updatedAt: "2020-05-04T16:39:12.739Z"
+}, {
+  _id: "5eb045309a16ea00176c9aa4",
+  skill: "moraba",
+  description: "JaaaNn had chir !!",
+  createdAt: "2020-05-04T16:39:12.739Z",
+  updatedAt: "2020-05-04T16:39:12.739Z"
+}];
+},{"../config":"src/scripts/config.js"}],"src/scripts/skills/getSkillByName.js":[function(require,module,exports) {
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var _require = require("../config"),
+    get = _require.get;
+
+module.exports = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(skillName) {
+    var _yield$get, data;
+
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return get({
+              url: "/skills/".concat(skillName)
+            });
+
+          case 2:
+            _yield$get = _context.sent;
+            data = _yield$get.data;
+            return _context.abrupt("return", data);
+
+          case 5:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x) {
+    return _ref.apply(this, arguments);
+  };
+}(); //THE response of getSkillByName
+//array of skills
+
+
+var response = [{
+  owner: {
+    _id: "5eaf0049e241b400179fcb9c",
+    userName: "malibu",
+    imgUrl: "/users/5eaf0049e241b400179fcb9c/profilePicture"
+  },
+  _id: "5eb045309a16ea00176c9aa4",
+  skill: "moraba",
+  description: "JaaaNn had chir !!",
+  createdAt: "2020-05-04T16:39:12.739Z",
+  updatedAt: "2020-05-04T16:39:12.739Z"
+}, {
+  owner: {
+    _id: "5eaf0049e241b400179fcb9c",
+    userName: "malibu",
+    imgUrl: "/users/5eaf0049e241b400179fcb9c/profilePicture"
+  },
+  _id: "5eb045309a16ea00176c9aa4",
+  skill: "moraba",
+  description: "JaaaNn had chir !!",
+  createdAt: "2020-05-04T16:39:12.739Z",
+  updatedAt: "2020-05-04T16:39:12.739Z"
+}];
+},{"../config":"src/scripts/config.js"}],"src/scripts/skills/rateSkill.js":[function(require,module,exports) {
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var _require = require("../config"),
+    post = _require.post;
+
+module.exports = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(skill_Id, rate) {
+    var _yield$post, data;
+
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return post({
+              url: "/skills/".concat(skill_Id, "/rate"),
+              data: {
+                rate: rate
+              }
+            });
+
+          case 2:
+            _yield$post = _context.sent;
+            data = _yield$post.data;
+            return _context.abrupt("return", data);
+
+          case 5:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+}(); //THE RESPONSE of rateSkill
+
+
+var response = {
+  _id: "5eb0466c9a16ea00176c9aae",
+  skill: "coding",
+  description: "mrid ta3 chorba",
+  owner: {
+    _id: "5eaf0049e241b400179fcb9c",
+    userName: "malibu",
+    imgUrl: "https://saqsini-api.herokuapp.com/users/5eaf0049e241b400179fcb9c/profilePicture"
+  },
+  createdAt: "2020-05-04T16:44:28.676Z",
+  updatedAt: "2020-05-04T16:45:15.435Z",
+  __v: 1,
+  evaluation: 7.2 //evaluation represente la moyenne genrale attribué par les utilisateurs
+
+};
+},{"../config":"src/scripts/config.js"}],"src/scripts/skills/updateSkill.js":[function(require,module,exports) {
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var _require = require("../config"),
+    patch = _require.patch;
+
+module.exports = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(skill_id, description) {
+    var _yield$patch, data;
+
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return patch({
+              url: "/skills/me/".concat(skill_id),
+              data: {
+                description: description
+              }
+            });
+
+          case 2:
+            _yield$patch = _context.sent;
+            data = _yield$patch.data;
+            return _context.abrupt("return", data);
+
+          case 5:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+}(); //THE RESPONSE OF UpdateSkill
+//
+
+
+var response = {
+  _id: "5eb0466c9a16ea00176c9aae",
+  skill: "coding",
+  description: "mrid ta3 chorba",
+  owner: {
+    _id: "5eaf0049e241b400179fcb9c",
+    userName: "malibu",
+    imgUrl: "https://saqsini-api.herokuapp.com/users/5eaf0049e241b400179fcb9c/profilePicture"
+  },
+  createdAt: "2020-05-04T16:44:28.676Z",
+  updatedAt: "2020-05-04T16:45:15.435Z",
+  __v: 1,
+  evaluation: 7.2 //evaluation represente la moyenne genrale attribué par les utilisateurs
+
+};
 },{"../config":"src/scripts/config.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
@@ -3346,7 +3747,8 @@ require("regenerator-runtime/runtime");
 
 console.log("hello and welcome Anis");
 
-var getUser = require("./src/scripts/user/getOwnProfile"); //delete profile returns a promise .. consume it
+var getUser = require("./src/scripts/user/getOwnProfile"); //getUser()
+//delete profile returns a promise .. consume it
 
 
 var deleteProfile = require("./src/scripts/user/deleteProfile");
@@ -3414,10 +3816,29 @@ var login = require("./src/scripts/user/login"); //login("khaoula@gmail.com", "o
 var logout = require("./src/scripts/user/logout"); //logout()
 
 
-var logoutAll = require("./src/scripts/user/logoutAll");
+var logoutAll = require("./src/scripts/user/logoutAll"); //logoutAll();
 
-logoutAll();
-},{"regenerator-runtime/runtime":"node_modules/regenerator-runtime/runtime.js","./src/scripts/user/getOwnProfile":"src/scripts/user/getOwnProfile.js","./src/scripts/user/deleteProfile":"src/scripts/user/deleteProfile.js","./src/scripts/user/signup":"src/scripts/user/signup.js","./src/scripts/user/getOtherProfile":"src/scripts/user/getOtherProfile.js","./src/scripts/user/addBackgroundImg":"src/scripts/user/addBackgroundImg.js","./src/scripts/user/addProfileImg":"src/scripts/user/addProfileImg.js","./src/scripts/user/updateProfile":"src/scripts/user/updateProfile.js","./src/scripts/user/login":"src/scripts/user/login.js","./src/scripts/user/logout":"src/scripts/user/logout.js","./src/scripts/user/logoutAll":"src/scripts/user/logoutAll.js"}],"../../../../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+
+var addSkill = require("./src/scripts/skills/addSkill"); //addSkill("Moraba", "etfol hada wa3rr").then(data => console.log(data));
+
+
+var deleteSkill = require("./src/scripts/skills/deleteSkill"); //deleteSkill("5ed531b446f9281f8de5c6a3").then(data => console.log(data))
+
+
+var getMySkills = require("./src/scripts/skills/getMySkills"); //getMySkills().then((data) => console.log(data));
+
+
+var getOthersSkills = require("./src/scripts/skills/getOthersSkills"); //getOthersSkills("5ed52deb2f71d814c09cddaf").then((data) => console.log(data));
+
+
+var getSkillByName = require("./src/scripts/skills/getSkillByName"); //getSkillByName("Moraba").then((data) => console.log(data));
+
+
+var rateSkill = require("./src/scripts/skills/rateSkill"); //rateSkill("5ed5350386014d24494f0f88", 4).then((data) => console.log(data));
+
+
+var updateSkill = require("./src/scripts/skills/updateSkill"); //updateSkill("5ed5413e88567a345ce40c78", "skill updated").then((data) => console.log(data));
+},{"regenerator-runtime/runtime":"node_modules/regenerator-runtime/runtime.js","./src/scripts/user/getOwnProfile":"src/scripts/user/getOwnProfile.js","./src/scripts/user/deleteProfile":"src/scripts/user/deleteProfile.js","./src/scripts/user/signup":"src/scripts/user/signup.js","./src/scripts/user/getOtherProfile":"src/scripts/user/getOtherProfile.js","./src/scripts/user/addBackgroundImg":"src/scripts/user/addBackgroundImg.js","./src/scripts/user/addProfileImg":"src/scripts/user/addProfileImg.js","./src/scripts/user/updateProfile":"src/scripts/user/updateProfile.js","./src/scripts/user/login":"src/scripts/user/login.js","./src/scripts/user/logout":"src/scripts/user/logout.js","./src/scripts/user/logoutAll":"src/scripts/user/logoutAll.js","./src/scripts/skills/addSkill":"src/scripts/skills/addSkill.js","./src/scripts/skills/deleteSkill":"src/scripts/skills/deleteSkill.js","./src/scripts/skills/getMySkills":"src/scripts/skills/getMySkills.js","./src/scripts/skills/getOthersSkills":"src/scripts/skills/getOthersSkills.js","./src/scripts/skills/getSkillByName":"src/scripts/skills/getSkillByName.js","./src/scripts/skills/rateSkill":"src/scripts/skills/rateSkill.js","./src/scripts/skills/updateSkill":"src/scripts/skills/updateSkill.js"}],"../../../../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -3445,7 +3866,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "45537" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "37363" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
