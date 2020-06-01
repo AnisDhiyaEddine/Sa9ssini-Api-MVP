@@ -57,7 +57,7 @@ router.post("/auth/login", async (req, res) => {
     );
     const token = await user.generateAuthToken();
     await user.save();
-    res.render("profile",{ user, token });
+    res.send({ user, token });
   } catch (error) {
     res.status(400).send({ error: "Unable to login" });
   }
@@ -68,8 +68,9 @@ router.post("/auth/logout", auth, async (req, res) => {
   try {
     //check if the connection was established by third party service
     if (req.user.githubId || req.user.linkedinId) {
+      const user = req.user;
       req.logout();
-      res.status(200).send(req.user);
+      res.status(200).send(user);
     } else {
       req.user.tokens = req.user.tokens.filter(
         (token) => token.token !== req.token
@@ -85,6 +86,12 @@ router.post("/auth/logout", auth, async (req, res) => {
 
 router.post("/auth/logoutAll", auth, async (req, res) => {
   try {
+    if (req.user.githubId || req.user.linkedinId) {
+      const user = req.user;
+      req.logout();
+      res.status(200).send(user);
+    }
+
     //we don't need to know connection src
     req.user.tokens = [];
     await req.user.save();
@@ -124,7 +131,7 @@ router.get(
   "/auth/linkedin/redirect",
   passport.authenticate("linkedin"),
   (req, res) => {
-    res.redirect("http://localhost:1234/src/markup/profile.html",);
+    res.redirect("http://localhost:1234/src/markup/profile.html");
     //simple use res.send(req.user)
   }
 );

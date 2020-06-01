@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -33,11 +32,11 @@
       main,
       header {
         max-width: 960px;
-        margin: 30px auto; 
+        margin: 30px auto;
         padding: 0 10px;
         color: #333;
-      }</style> 
-  <script src="/register.js"></script></head> 
+      }</style>
+  <script src="/register.js"></script></head>
   <body>
     <nav>
       <ul>
@@ -47,12 +46,17 @@
     </nav>
     <header>
       <h1>Hello and welcome</h1>
-      <h2>Homepage</h2> 
-    </header> 
+      <h2>Homepage</h2>
+    </header>
+
+    <form id="uploadForm" action="upload_file" role="form" method="post" enctype="multipart/form-data">
+      <input type="file" id="file" name="profilePicture">
+      <input type="submit" value="Upload">
+    </form>
+    
     <a href="/src/markup/register.html"></a>
     <a href="/src/markup/profile.html"></a>
 
     <script src="/client.e31bb0bc.js"></script>
   </body>
 </html>
-   

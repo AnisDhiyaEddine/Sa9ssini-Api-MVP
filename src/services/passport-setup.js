@@ -32,6 +32,9 @@ passport.use(
           user = new User({
             userName: profile.username,
             githubId: profile.id,
+            email: "generic@gmail.com",
+            password: "generic",
+            gender: "not specific",
           });
           user.save();
           done(null, user);
@@ -65,6 +68,9 @@ passport.use(
             userName: r_liteprofile.displayName,
             imgUrl: r_liteprofile._json.profilePicture.displayImage,
             linkedinId: r_liteprofile.id,
+            email: "generic@gmail.com",
+            password: "generic",
+            gender: "not specific",
           });
           user.save();
           done(null, user);

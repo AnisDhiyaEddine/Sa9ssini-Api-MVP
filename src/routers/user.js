@@ -58,11 +58,9 @@ router.delete("/users/me", auth, async (req, res) => {
 //Note : pictures are updated in diffrent routes
 router.patch("/users/me", auth, async (req, res) => {
   const updates = Object.keys(req.body);
-
   const allowedUpdates = ["userName", "email", "password", "gender"];
   const allowed = updates.every((update) => allowedUpdates.includes(update));
   //allowed true if every update is included in the allowedUpdates arr
-
   if (!allowed) {
     return res.status(400).send({ error: "Invalid updates" });
   }
@@ -72,7 +70,7 @@ router.patch("/users/me", auth, async (req, res) => {
     await req.user.save();
     res.send(req.user);
   } catch (error) {
-    res.status(500).send();
+    res.status(500).send(error);
   }
 });
 

@@ -2656,7 +2656,7 @@ var remove = axios.create({
   }
 });
 exports.remove = remove;
-},{"axios":"node_modules/axios/index.js"}],"src/scripts/user/getUser.js":[function(require,module,exports) {
+},{"axios":"node_modules/axios/index.js"}],"src/scripts/user/getOwnProfile.js":[function(require,module,exports) {
 "use strict";
 
 require("regenerator-runtime/runtime");
@@ -2866,6 +2866,479 @@ var response = {
   },
   token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZWIxMmE5YmY0OTY1NTIxMWI2M2M0ZDIiLCJpYXQiOjE1ODg2NjkwODN9.nxx1sEO2yw52txvn4PlaC3qP27NkhC1tya6XqwQYDmY"
 };
+},{"../config":"src/scripts/config.js"}],"src/scripts/user/getOtherProfile.js":[function(require,module,exports) {
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var _require = require("../config"),
+    get = _require.get;
+
+module.exports = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(id) {
+    var _yield$get, data;
+
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.prev = 0;
+            _context.next = 3;
+            return get({
+              url: "/users/".concat(id)
+            });
+
+          case 3:
+            _yield$get = _context.sent;
+            data = _yield$get.data;
+            return _context.abrupt("return", data);
+
+          case 8:
+            _context.prev = 8;
+            _context.t0 = _context["catch"](0);
+            console.log(_context.t0);
+
+          case 11:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, null, [[0, 8]]);
+  }));
+
+  return function (_x) {
+    return _ref.apply(this, arguments);
+  };
+}(); //Response form
+
+
+var response = {
+  gender: "male",
+  _id: "5eb02f4b7fb70f001786414f",
+  userName: "lomi",
+  email: "k.mario@mail.com",
+  imgUrl: "https://saqsini-api.herokuapp.com/users/5eb02f4b7fb70f001786414f/profilePicture",
+  backgroundUrl: "https://saqsini-api.herokuapp.com/users/5eb02f4b7fb70f001786414f/backgroundPicture",
+  createdAt: "2020-05-04T15:05:47.344Z",
+  updatedAt: "2020-05-05T09:10:03.216Z"
+};
+var ResponseLinkedinAuth = {
+  createdAt: "2020-06-01T11:25:24.020Z",
+  gender: "not specific",
+  imgUrl: "urn:li:digitalmediaAsset:C5603AQGCjpxlw79pyQ",
+  linkedinId: "6_14g8bKD1",
+  updatedAt: "2020-06-01T11:25:24.020Z",
+  userName: "Boudiaf Anis DHIYA EDDINE",
+  __v: 0,
+  _id: "5ed4e5a4d1202b2c033e22df"
+};
+var responseGithubAuth = {
+  _id: "5ed3e108db9a599d64b89df5",
+  gender: "not specific",
+  userName: "AnisDhiyaEddine",
+  githubId: "45804461",
+  tokens: [],
+  createdAt: "2020-05-31T16:53:28.508Z",
+  updatedAt: "2020-05-31T16:53:28.508Z",
+  __v: 0
+};
+},{"../config":"src/scripts/config.js"}],"src/scripts/user/addBackgroundImg.js":[function(require,module,exports) {
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var _require = require("../config"),
+    post = _require.post;
+
+module.exports = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(file) {
+    var data;
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.prev = 0;
+            _context.next = 3;
+            return post({
+              url: "/users/me/profilePicture",
+              data: file,
+              headers: {
+                "Content-Type": "multipart/form-data"
+              }
+            });
+
+          case 3:
+            data = _context.sent;
+            return _context.abrupt("return", data);
+
+          case 7:
+            _context.prev = 7;
+            _context.t0 = _context["catch"](0);
+            console.log(_context.t0);
+
+          case 10:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, null, [[0, 7]]);
+  }));
+
+  return function (_x) {
+    return _ref.apply(this, arguments);
+  };
+}(); //THE response of addBackgroundImg is nothing
+// otherwise u get an error !!
+
+/*
+//-----THE JS CODE to upload background pcture
+
+document.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        let formData = new FormData();
+        let imagefile = document.querySelector('#file');
+        formData.append("backgroundPicture", imagefile.files[0]);
+        try {
+            await addImg(formData);
+            let data = await getOwnProfile();
+            document.querySelector('#image').src = data.imgUrl;
+        } catch (error) { console.log(error) }
+    })
+
+//-----THE HTML CODE to upload profile pcture
+<form id="uploadForm" action='upload_file' role="form" method="post" enctype=multipart/form-data>
+        <input type="file" id="file" name="profilePicture">
+        <input type=submit value=Upload>
+</form>
+*/
+},{"../config":"src/scripts/config.js"}],"src/scripts/user/addProfileImg.js":[function(require,module,exports) {
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var _require = require("../config"),
+    post = _require.post;
+
+module.exports = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(file) {
+    var data;
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return post({
+              url: "/users/me/profilePicture",
+              data: file,
+              headers: {
+                "Content-Type": "multipart/form-data"
+              }
+            });
+
+          case 2:
+            data = _context.sent;
+            return _context.abrupt("return", data);
+
+          case 4:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x) {
+    return _ref.apply(this, arguments);
+  };
+}(); //THE response of addProfileImg is nothing
+// otherwise u get an error !!
+
+/*
+//-----THE JS CODE to upload profile pcture
+
+document.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        let formData = new FormData();
+        let imagefile = document.querySelector('#file');
+        formData.append("profilePicture", imagefile.files[0]);
+        try {
+            await addImg(formData);
+            let data = await getOwnProfile();
+            document.querySelector('#image').src = data.imgUrl;
+        } catch (error) { console.log(error) }
+    })
+
+//-----THE HTML CODE to upload profile pcture
+<form id="uploadForm" action='upload_file' role="form" method="post" enctype=multipart/form-data>
+        <input type="file" id="file" name="profilePicture">
+        <input type=submit value=Upload>
+</form>
+*/
+},{"../config":"src/scripts/config.js"}],"src/scripts/user/updateProfile.js":[function(require,module,exports) {
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var _require = require('../config'),
+    patch = _require.patch;
+
+module.exports = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+  var updates,
+      _yield$patch,
+      data,
+      _args = arguments;
+
+  return regeneratorRuntime.wrap(function _callee$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          updates = _args.length > 0 && _args[0] !== undefined ? _args[0] : {};
+          _context.next = 3;
+          return patch({
+            url: "/users/me",
+            data: updates
+          });
+
+        case 3:
+          _yield$patch = _context.sent;
+          data = _yield$patch.data;
+          return _context.abrupt("return", data);
+
+        case 6:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, _callee);
+})); //Updates is an Objest that contains one or more
+//of the following properties
+// {userName, email, password, gender}
+//exemple:
+//const updates = {userName: 'imane', gender: 'female'}
+//updateProfile()
+//THE RESPONSE OF updateProfile
+//
+
+var response = {
+  gender: "not specific",
+  _id: "5eb12a9bf49655211b63c4d2",
+  userName: "lomi",
+  email: "s.mario@mail.com",
+  imgUrl: "https://saqsini-api.herokuapp.com/users/5eb12a9bf49655211b63c4d2/profilePicture",
+  backgroundUrl: "https://saqsini-api.herokuapp.com/users/5eb12a9bf49655211b63c4d2/backgroundPicture",
+  createdAt: "2020-05-05T08:58:03.747Z",
+  updatedAt: "2020-05-05T08:58:03.747Z",
+  __v: 0
+};
+},{"../config":"src/scripts/config.js"}],"src/scripts/user/login.js":[function(require,module,exports) {
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var _require = require("../config"),
+    post = _require.post;
+
+module.exports = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(email, password) {
+    var _yield$post, data;
+
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.prev = 0;
+            _context.next = 3;
+            return post({
+              url: "/auth/login",
+              data: {
+                email: email,
+                password: password
+              }
+            });
+
+          case 3:
+            _yield$post = _context.sent;
+            data = _yield$post.data;
+            localStorage.setItem("Auth", "Bearer ".concat(data.token));
+            return _context.abrupt("return", data);
+
+          case 9:
+            _context.prev = 9;
+            _context.t0 = _context["catch"](0);
+            console.log(_context.t0);
+
+          case 12:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, null, [[0, 9]]);
+  }));
+
+  return function (_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+}(); //the RESPONSE OF login
+
+
+var response = {
+  user: {
+    gender: "not specific",
+    _id: "5eb12a9bf49655211b63c4d2",
+    userName: "lomi",
+    email: "s.mario@mail.com",
+    imgUrl: "https://saqsini-api.herokuapp.com/users/5eb12a9bf49655211b63c4d2/profilePicture",
+    backgroundUrl: "https://saqsini-api.herokuapp.com/users/5eb12a9bf49655211b63c4d2/backgroundPicture",
+    createdAt: "2020-05-05T08:58:03.747Z",
+    updatedAt: "2020-05-05T08:58:03.747Z",
+    __v: 0
+  },
+  token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZWIxMmE5YmY0OTY1NTIxMWI2M2M0ZDIiLCJpYXQiOjE1ODg2NjkwODN9.nxx1sEO2yw52txvn4PlaC3qP27NkhC1tya6XqwQYDmY"
+};
+},{"../config":"src/scripts/config.js"}],"src/scripts/user/logout.js":[function(require,module,exports) {
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var _require = require("../config"),
+    post = _require.post;
+
+module.exports = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+  var _yield$post, data;
+
+  return regeneratorRuntime.wrap(function _callee$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.prev = 0;
+          _context.next = 3;
+          return post({
+            url: "/auth/logout"
+          });
+
+        case 3:
+          _yield$post = _context.sent;
+          data = _yield$post.data;
+          localStorage.removeItem("Auth");
+          console.log(data);
+          return _context.abrupt("return", data);
+
+        case 10:
+          _context.prev = 10;
+          _context.t0 = _context["catch"](0);
+          console.log(_context.t0);
+
+        case 13:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, _callee, null, [[0, 10]]);
+})); //the RESPONSE OF logout
+
+var response = {
+  gender: "not specific",
+  _id: "5eb12a9bf49655211b63c4d2",
+  userName: "lomi",
+  email: "s.mario@mail.com",
+  imgUrl: "https://saqsini-api.herokuapp.com/users/5eb12a9bf49655211b63c4d2/profilePicture",
+  backgroundUrl: "https://saqsini-api.herokuapp.com/users/5eb12a9bf49655211b63c4d2/backgroundPicture",
+  createdAt: "2020-05-05T08:58:03.747Z",
+  updatedAt: "2020-05-05T08:58:03.747Z",
+  __v: 0
+};
+var ResponseLinkedinAuth = {
+  createdAt: "2020-06-01T11:25:24.020Z",
+  gender: "not specific",
+  imgUrl: "urn:li:digitalmediaAsset:C5603AQGCjpxlw79pyQ",
+  linkedinId: "6_14g8bKD1",
+  updatedAt: "2020-06-01T11:25:24.020Z",
+  userName: "Boudiaf Anis DHIYA EDDINE",
+  __v: 0,
+  _id: "5ed4e5a4d1202b2c033e22df"
+};
+var responseGithubAuth = {
+  _id: "5ed3e108db9a599d64b89df5",
+  gender: "not specific",
+  userName: "AnisDhiyaEddine",
+  githubId: "45804461",
+  tokens: [],
+  createdAt: "2020-05-31T16:53:28.508Z",
+  updatedAt: "2020-05-31T16:53:28.508Z",
+  __v: 0
+};
+},{"../config":"src/scripts/config.js"}],"src/scripts/user/logoutAll.js":[function(require,module,exports) {
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var _require = require("../config"),
+    post = _require.post;
+
+module.exports = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+  var _yield$post, data;
+
+  return regeneratorRuntime.wrap(function _callee$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.prev = 0;
+          _context.next = 3;
+          return post({
+            url: "/auth/logoutAll"
+          });
+
+        case 3:
+          _yield$post = _context.sent;
+          data = _yield$post.data;
+          localStorage.removeItem("Auth");
+          console.log(data);
+          return _context.abrupt("return", data);
+
+        case 10:
+          _context.prev = 10;
+          _context.t0 = _context["catch"](0);
+          console.log(_context.t0);
+
+        case 13:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, _callee, null, [[0, 10]]);
+})); //THE response of logoutAll
+
+var response = {
+  gender: "not specific",
+  _id: "5eb12a9bf49655211b63c4d2",
+  userName: "lomi",
+  email: "s.mario@mail.com",
+  imgUrl: "https://saqsini-api.herokuapp.com/users/5eb12a9bf49655211b63c4d2/profilePicture",
+  backgroundUrl: "https://saqsini-api.herokuapp.com/users/5eb12a9bf49655211b63c4d2/backgroundPicture",
+  createdAt: "2020-05-05T08:58:03.747Z",
+  updatedAt: "2020-05-05T08:58:03.747Z",
+  __v: 0
+};
+var ResponseLinkedinAuth = {
+  createdAt: "2020-06-01T11:25:24.020Z",
+  gender: "not specific",
+  imgUrl: "urn:li:digitalmediaAsset:C5603AQGCjpxlw79pyQ",
+  linkedinId: "6_14g8bKD1",
+  updatedAt: "2020-06-01T11:25:24.020Z",
+  userName: "Boudiaf Anis DHIYA EDDINE",
+  __v: 0,
+  _id: "5ed4e5a4d1202b2c033e22df"
+};
+var responseGithubAuth = {
+  _id: "5ed3e108db9a599d64b89df5",
+  gender: "not specific",
+  userName: "AnisDhiyaEddine",
+  githubId: "45804461",
+  tokens: [],
+  createdAt: "2020-05-31T16:53:28.508Z",
+  updatedAt: "2020-05-31T16:53:28.508Z",
+  __v: 0
+};
 },{"../config":"src/scripts/config.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
@@ -2873,13 +3346,78 @@ require("regenerator-runtime/runtime");
 
 console.log("hello and welcome Anis");
 
-var getUser = require("./src/scripts/user/getUser"); //delete profile returns a promise .. consume it
+var getUser = require("./src/scripts/user/getOwnProfile"); //delete profile returns a promise .. consume it
 
 
 var deleteProfile = require("./src/scripts/user/deleteProfile");
 
 var signup = require("./src/scripts/user/signup"); //signup("AnisDhiyaEddine","dhiaeboudiaf@gmail.com","hello hello")
-},{"regenerator-runtime/runtime":"node_modules/regenerator-runtime/runtime.js","./src/scripts/user/getUser":"src/scripts/user/getUser.js","./src/scripts/user/deleteProfile":"src/scripts/user/deleteProfile.js","./src/scripts/user/signup":"src/scripts/user/signup.js"}],"../../../../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+//getOtherProfile returns a promise consume it
+
+
+var getOtherProfile = require("./src/scripts/user/getOtherProfile"); //getOtherProfile("5ed4f3e5e7a2ef441e34bd97")
+
+
+var uploadBckgroundPicture = require("./src/scripts/user/addBackgroundImg");
+/*
+//Uploaded succeffuly
+document.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    let formData = new FormData();
+    let imagefile = document.querySelector('#file');
+    formData.append("backgroundPicture", imagefile.files[0]);
+    try {
+        await uploadBckgroundPicture(formData);
+        let data = await getUser();
+        console.log(data)
+   //     document.querySelector('#image').src = data.imgUrl;
+    } catch (error) { console.log(error) }
+})
+*/
+
+
+var uploadProfilePicture = require("./src/scripts/user/addProfileImg");
+/*
+document.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  let formData = new FormData();
+  let imagefile = document.querySelector("#file");
+  formData.append("profilePicture", imagefile.files[0]);
+  try {
+    await uploadProfilePicture(formData);
+    let data = await getUser();
+    console.log(data);
+    //     document.querySelector('#image').src = data.imgUrl;
+  } catch (error) {
+    console.log(error);
+  }
+});
+*/
+
+
+var updateProfile = require("./src/scripts/user/updateProfile");
+/*
+const updates = {
+  userName: "khaoula",
+  gender: "female",
+  email: "khaoula@gmail.com",
+  password: "ola ola", 
+};
+
+ updateProfile(updates);
+*/
+
+
+var login = require("./src/scripts/user/login"); //login("khaoula@gmail.com", "ola ola");
+
+
+var logout = require("./src/scripts/user/logout"); //logout()
+
+
+var logoutAll = require("./src/scripts/user/logoutAll");
+
+logoutAll();
+},{"regenerator-runtime/runtime":"node_modules/regenerator-runtime/runtime.js","./src/scripts/user/getOwnProfile":"src/scripts/user/getOwnProfile.js","./src/scripts/user/deleteProfile":"src/scripts/user/deleteProfile.js","./src/scripts/user/signup":"src/scripts/user/signup.js","./src/scripts/user/getOtherProfile":"src/scripts/user/getOtherProfile.js","./src/scripts/user/addBackgroundImg":"src/scripts/user/addBackgroundImg.js","./src/scripts/user/addProfileImg":"src/scripts/user/addProfileImg.js","./src/scripts/user/updateProfile":"src/scripts/user/updateProfile.js","./src/scripts/user/login":"src/scripts/user/login.js","./src/scripts/user/logout":"src/scripts/user/logout.js","./src/scripts/user/logoutAll":"src/scripts/user/logoutAll.js"}],"../../../../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -2907,7 +3445,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46665" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "45537" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
