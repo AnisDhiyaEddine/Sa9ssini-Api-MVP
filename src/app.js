@@ -4,7 +4,7 @@ require("./db/mongoose"); //Connect to the database
 const app = express();
 const userRouter = require("./routers/user");
 const skillRouter = require("./routers/skill");
-const historyRouter = require("./routers/history");
+const chatRouter = require("./routers/chat");
 const authRouter = require("./routers/auth-routes");
 const cookieSession = require("cookie-session");
 const passport = require("passport");
@@ -25,10 +25,9 @@ app.use(passport.session());
 app.use(authRouter);
 app.use(userRouter);
 app.use(skillRouter);
-app.use(historyRouter);
+app.use(chatRouter);
 
-
-app.set('view engine', 'html');
-app.engine('html', require('hbs').__express);
+app.set("view engine", "html");
+app.engine("html", require("hbs").__express);
 
 module.exports = app;

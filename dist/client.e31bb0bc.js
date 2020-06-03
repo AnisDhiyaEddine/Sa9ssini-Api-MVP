@@ -2655,7 +2655,7 @@ var remove = axios.create({
   }
 });
 /*
-//Before fixing cors probleme disable web-security tempo
+//Before fixing cors probleme by disabling web-security tempo
 google-chrome  --user-data-dir=”/var/tmp/Chrome” --disable-web-security
 */
 
@@ -3741,8 +3741,6 @@ var response = {
 
 };
 },{"../config":"src/scripts/config.js"}],"index.js":[function(require,module,exports) {
-"use strict";
-
 require("regenerator-runtime/runtime");
 
 console.log("hello and welcome Anis");
@@ -3866,7 +3864,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "37363" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46473" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
