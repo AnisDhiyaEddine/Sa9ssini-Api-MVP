@@ -15,23 +15,14 @@ router.post("/auth/signup", async (req, res) => {
   const profileDist = join(__dirname, "../helpers/default_avatar.jpg");
   const backgroundDist = join(__dirname, "../helpers/background.jpeg");
 
-  user.imgUrl = `https://saqsini.herokuapp.com/users/${user._id}/profilePicture`;
-  user.backgroundUrl = `https://saqsini.herokuapp.com/users/${user._id}/backgroundPicture`;
+ // user.imgUrl = `https://saqsini.herokuapp.com/users/${user._id}/profilePicture`;
+ // user.backgroundUrl = `https://saqsini.herokuapp.com/users/${user._id}/backgroundPicture`;
 
-  user.profilePict = await sharp(profileDist)
-    .resize(250, 250)
-    .jpeg()
-    .toBuffer();
-  user.backgroundPict = await sharp(backgroundDist).jpeg().toBuffer(); //Think about the right resize
-
-  // const history = new History({
-  //     messages: [{
-  //         message: "Welcome",
-  //         status: "recieved",
-  //         owner: "Admin"
-  //     }],
-  //     user: user._id
-  // })
+  //user.profilePict = await sharp(profileDist)
+  //  .resize(250, 250)
+   // .jpeg()
+  //  .toBuffer();
+ // user.backgroundPict = await sharp(backgroundDist).jpeg().toBuffer(); //Think about the right resize
 
   try {
     const token = await user.generateAuthToken();
