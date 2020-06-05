@@ -14,7 +14,7 @@ router.post("/chats", auth, async (req, res) => {
     const existed = await Chat.find({ $and: [{ user_01 }, { user_02 }] });
     console.log(existed);
     if (existed.length > 0) {
-      throw new Error("chat already started");
+      res.send(existed[0]);
     } else {
       await chat.save();
       res.status(201).send(chat);
