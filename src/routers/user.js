@@ -12,7 +12,7 @@ const uploadPhoto = require("../middlware/uploadPhoto");
 
 //get your profile
 router.get("/users/me", auth, async (req, res) => {
-  res.send({ user: req.user });
+  res.send({ user: req.user, userName: req.user.userName });
 });
 
 //get other user profile
@@ -38,7 +38,36 @@ router.get("/users/:id", auth, async (req, res) => {
     }
     res.send(user);
   } catch (error) {
+    console.log(error);
     res.status(500).send();
+  }
+});
+
+//get Other Profile by userName
+router.get("/users/get/:userName", auth, async (req, res) => {
+  try {
+    const user = await User.findOne(
+      { userName: req.params.userName },
+      {
+        userName: 1,
+        email: 1,
+        password: 1,
+        gender: 1,
+        tokens: 1,
+        createdAt: 1,
+        updatedAt: 1,
+        imgUrl: 1,
+        backgroundUrl: 1,
+      }
+    );
+
+    if (!user) {
+      res.status(404).send("User not found");
+    }
+    res.send(user);
+  } catch (error) {
+    res.status(500).send(error);
+    console.log(error);
   }
 });
 
