@@ -1,5 +1,0 @@
-2020/06/05-19:03:21.579 2806 Reusing MANIFEST /home/anis/Desktop/Dev/Node Js Dev/sa9sini-api/”/var/tmp/Chrome”/Default/IndexedDB/https_mail.google.com_0.indexeddb.leveldb/MANIFEST-000001
-2020/06/05-19:03:24.044 283c Level-0 table #5: started
-2020/06/05-19:03:24.091 283c Level-0 table #5: 1233 bytes OK
-2020/06/05-19:03:24.166 283c Delete type=0 #3
-2020/06/05-19:03:24.167 283c Manual compaction at level-0 from (begin) .. (end); will stop at (end)
