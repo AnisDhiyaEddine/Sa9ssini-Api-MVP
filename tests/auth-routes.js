@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const passport = require("passport");
-const auth = require("../middlware/auth");
-const User = require("../models/user");
+const auth = require("../src/middlware/auth");
+const User = require("../src/models/user");
 const { join } = require("path");
 const sharp = require("sharp");
 
