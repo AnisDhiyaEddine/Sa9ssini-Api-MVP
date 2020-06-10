@@ -1,11 +1,14 @@
 const express = require("express");
 require("./db/mongoose"); //Connect to the database
 //Passport setup for further
+
 const app = express();
 const userRouter = require("./routers/user");
 const skillRouter = require("./routers/skill");
 const chatRouter = require("./routers/chat");
-const authRouter = require("./routers/auth-routes");
+const authRouter = require("./routers/auth-routes.js");
+const QARouter = require("./routers/QA");
+
 const cookieSession = require("cookie-session");
 const passport = require("passport");
 const passportSetup = require("./services/passport-setup");
@@ -26,6 +29,7 @@ app.use(authRouter);
 app.use(userRouter);
 app.use(skillRouter);
 app.use(chatRouter);
+app.use(QARouter);
 
 app.set("view engine", "html");
 app.engine("html", require("hbs").__express);

@@ -11,10 +11,20 @@ const questionSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    details: {
+    detail: {
       type: String,
       required: true,
     },
+    tags: [
+      {
+        tag: {
+          type: String,
+        },
+        type: {
+          type: String,
+        },
+      },
+    ],
     answers: [
       {
         answer: {

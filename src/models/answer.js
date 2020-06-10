@@ -24,6 +24,16 @@ const answerSchema = new mongoose.Schema(
     evaluation: {
       type: Number,
     },
+    tags: [
+      {
+        tag: {
+          type: String,
+        },
+        type: {
+          type: String,
+        },
+      },
+    ],
   },
   {
     timestamps: true,
