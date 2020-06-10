@@ -133,14 +133,14 @@ router.patch("/questions/:questionID/addAnswer", auth, async (req, res) => {
       ...req.body,
       "owner._id": req.user._id,
       question: _id,
-      raters: [],
+      voters: [],
       tags: [],
-      evaluation: 0,
+      votes: 0,
     };
     let answer = await new Answer(answerObj);
     await answer.save();
 
-    let obj = { answer: answer._id, evaluation: answer.evaluation };
+    let obj = { answer: answer._id, votes: answer.votes };
     question.answers.push(obj);
     await question.save();
     res.status(201).send({ question, answer });
@@ -160,23 +160,23 @@ router.get("/answers/:questionID/bestAnswer", auth, async (req, res) => {
     if (!question) {
       res.status(404).send({ error: "not found" });
     }
-
-    question.answers.forEach((el) => {
-      if (el.evaluation > max) {
-        max = el.evaluation;
-      }
-    });
-    let id;
-    question.answers.forEach((el) => {
-      if (el.evaluation === max) {
-        id = el.answer;
+    let maxVotes = 0;
+    //get the id of the answer with the max votes
+    question.answers.forEach(async (el) => {
+      let answer = await Answer.findById(el.answer);
+      if (answer.votes > maxVotes) {
+        maxVotes = answer.votes;
       }
     });
 
-    let bestAnswer = await Answer.findById({ _id: id });
-    console.log(bestAnswer);
-    res.send(bestAnswer);
+    question.answers.forEach(async (el) => {
+      let answer = await Answer.findById(el.answer);
+      if (answer.votes == maxVotes) {
+        res.send(answer);
+      }
+    });
   } catch (error) {
+    console.log(error);
     res.status(500).send(error);
   }
 });
@@ -224,8 +224,8 @@ router.patch("/answers/me/:answerID/addTag", auth, async (req, res) => {
   }
 });
 
-//Rate an answer
-router.patch("/answers/:answerID/rate", auth, async (req, res) => {
+//vote an answer
+router.patch("/answers/:answerID/vote", auth, async (req, res) => {
   const _id = req.params.answerID;
   try {
     const answer = await Answer.findOne({ _id });
@@ -233,31 +233,20 @@ router.patch("/answers/:answerID/rate", auth, async (req, res) => {
       return res.status(404).send();
     }
     if (req.user._id.equals(answer.owner._id)) {
-      return res.status(403).send("invalid evaluation");
+      return res.status(403).send("invalid vote operation");
     }
-    let exist = answer.raters.filter((el) => {
-      return el.rater.equals(req.user._id);
+    let exist = answer.voters.filter((el) => {
+      return el.voter.equals(req.user._id);
     });
 
     if (!exist.length) {
-      answer.raters.push({ rater: req.user._id, rate: req.body.rate });
-    } else {
-      for (let i = 0; i < answer.raters.length; i++) {
-        if (answer.raters[i].rater.equals(req.user._id)) {
-          answer.raters[i].rate = req.body.rate;
-        }
-      }
+      answer.voters.push({ voter: req.user._id });
     }
 
-    let moyen = 0;
-    for (let i = 0; i < answer.raters.length; i++) {
-      moyen += answer.raters[i].rate;
-    }
-
-    answer.evaluation = moyen / answer.raters.length;
+    answer.votes = answer.voters.length;
 
     await answer.save();
-    await answer.populate("raters.rater").execPopulate();
+    await answer.populate("voters.voter").execPopulate();
     res.send(answer);
   } catch (error) {
     console.log(error);

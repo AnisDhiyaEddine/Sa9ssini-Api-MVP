@@ -20,16 +20,15 @@ const answerSchema = new mongoose.Schema(
         type: String,
       },
     },
-    raters: [
+    voters: [
       {
-        rater: {
+        voter: {
           type: mongoose.Schema.Types.ObjectId,
           ref: "User",
         },
-        rate: { type: Number },
       },
     ],
-    evaluation: {
+    votes: {
       type: Number,
     },
     tags: [
