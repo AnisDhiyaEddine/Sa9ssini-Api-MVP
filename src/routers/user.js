@@ -38,7 +38,6 @@ router.get("/users/:id", auth, async (req, res) => {
     }
     res.send(user);
   } catch (error) {
-    console.log(error);
     res.status(500).send();
   }
 });

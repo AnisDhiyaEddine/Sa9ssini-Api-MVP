@@ -24,12 +24,12 @@ const { skillId, skill } = skillFactory;
 const { setupDatabaseOAuth } = databaseSetupFactory;
 let page;
 beforeEach(async () => {
-  page = await Page.build();
+  //page = await Page.build();
   setupDatabaseOAuth();
 });
 
 afterEach(async () => {
- // await page.close();
+ //await page.close();
 });
 //Setting up the database before each unit test
 
@@ -39,6 +39,4 @@ afterEach(async () => {
 //----------------------------------------------------------
 
 test("fake session setup", async () => {
-  await page.login();
-  const response = await request(app).get("/users/me");
 });

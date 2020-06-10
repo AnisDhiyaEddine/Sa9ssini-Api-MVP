@@ -8,8 +8,7 @@ const questionSchema = new mongoose.Schema(
       userName: String,
     },
     question: {
-      type: String,
-      required: true,
+      _id: mongoose.Types.ObjectId,
     },
     detail: {
       type: String,

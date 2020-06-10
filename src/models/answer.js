@@ -3,14 +3,22 @@ const validator = require("validator");
 
 const answerSchema = new mongoose.Schema(
   {
+    question: {
+      type: mongoose.Types.ObjectId,
+      required: true,
+    },
     answer: {
       type: String,
       required: true,
       trim: true,
     },
     owner: {
-      _id: mongoose.Types.ObjectId,
-      userName: String,
+      _id: {
+        type: mongoose.Types.ObjectId,
+      },
+      userName: {
+        type: String,
+      },
     },
     raters: [
       {
