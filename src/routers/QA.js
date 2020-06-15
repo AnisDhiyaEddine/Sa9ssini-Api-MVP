@@ -3,6 +3,8 @@ const router = new express.Router();
 const Question = require("../models/question");
 const Answer = require("../models/answer");
 const auth = require("../middlware/auth");
+const cache = require('../services/cache');
+const clear = require('../middlware/clearCache')
 
 router.post("/questions/me", auth, async (req, res) => {
   const question = new Question({

@@ -3,7 +3,6 @@ const router = new express.Router();
 const Skill = require('../models/skill');
 const User = require('../models/user');
 const auth = require('../middlware/auth');
-
 //Add a skill
 router.post('/skills', auth, async (req, res) => {
     const skill = new Skill({
@@ -42,7 +41,7 @@ router.get('/skills/me', auth, async (req, res) => {
         const skills = await Skill.find({ 'owner._id': req.user._id })
             .sort(sort)
             .limit(parseInt(req.query.limit))
-            .skip(parseInt(req.query.skip))
+            .skip(parseInt(req.query.skip));
         res.send(skills).status(200)
     } catch (e) {
         res.send(e).status(400);

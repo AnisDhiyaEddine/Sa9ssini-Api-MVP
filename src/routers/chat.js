@@ -3,6 +3,8 @@ const router = new express.Router();
 const Chat = require("../models/chat");
 const Message = require("../models/message");
 const auth = require("../middlware/auth");
+const cache = require('../services/cache');
+const clear = require('../middlware/clearCache')
 
 router.post("/chats", auth, async (req, res) => {
   const { user_01, user_02 } = req.body;

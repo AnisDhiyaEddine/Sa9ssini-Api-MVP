@@ -31,7 +31,7 @@ router.get("/users/:id", auth, async (req, res) => {
         imgUrl: 1,
         backgroundUrl: 1,
       }
-    );
+    ).cache({key:req.user._id});
 
     if (!user) {
       res.status(404).send("User not found");
