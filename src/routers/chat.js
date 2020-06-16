@@ -3,17 +3,19 @@ const router = new express.Router();
 const Chat = require("../models/chat");
 const Message = require("../models/message");
 const auth = require("../middlware/auth");
-const cache = require('../services/cache');
-const clear = require('../middlware/clearCache')
+const cache = require("../services/cache");
+const clearCache = require("../middlware/clearCache");
 
-router.post("/chats", auth, async (req, res) => {
+router.post("/chats", auth, clearCache, async (req, res) => {
   const { user_01, user_02 } = req.body;
   const chat = new Chat({
     user_01,
     user_02,
   });
   try {
-    const existed = await Chat.find({ $and: [{ user_01 }, { user_02 }] });
+    const existed = await Chat.find({
+      $and: [{ user_01 }, { user_02 }],
+    }).cache({ key: req.user._id });
     console.log(existed);
     if (existed.length > 0) {
       res.send(existed[0]);
@@ -31,7 +33,7 @@ router.get("/chats", auth, async (req, res) => {
   try {
     const chats = await Chat.find({
       $or: [{ user_01: req.user._id }, { user_02: req.user._id }],
-    });
+    }).cache({ key: req.user._id });
 
     res.send(chats).status(200);
   } catch (error) {
@@ -39,7 +41,7 @@ router.get("/chats", auth, async (req, res) => {
   }
 });
 
-router.post("/chats/:chat_id/messages", auth, async (req, res) => {
+router.post("/chats/:chat_id/messages", auth, clearCache, async (req, res) => {
   const message = new Message({
     ...req.body,
     chat: req.params.chat_id,
@@ -54,7 +56,9 @@ router.post("/chats/:chat_id/messages", auth, async (req, res) => {
 
 router.get("/chats/:chat_id/messages", auth, async (req, res) => {
   try {
-    const messages = await Message.find({ chat: req.params.chat_id });
+    const messages = await Message.find({ chat: req.params.chat_id }).cache({
+      key: req.user._id,
+    });
     res.send(messages);
   } catch (error) {
     res.status(500).send(error);

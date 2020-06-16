@@ -9,6 +9,7 @@ const auth = require("../middlware/auth");
 const sharp = require("sharp");
 
 const uploadPhoto = require("../middlware/uploadPhoto");
+const clearCache = require("../middlware/clearCache");
 
 //get your profile
 router.get("/users/me", auth, async (req, res) => {
@@ -31,7 +32,7 @@ router.get("/users/:id", auth, async (req, res) => {
         imgUrl: 1,
         backgroundUrl: 1,
       }
-    ).cache({key:req.user._id});
+    ).cache({ key: req.user._id });
 
     if (!user) {
       res.status(404).send("User not found");
@@ -58,7 +59,7 @@ router.get("/users/get/:userName", auth, async (req, res) => {
         imgUrl: 1,
         backgroundUrl: 1,
       }
-    );
+    ).cache({ key: req.user._id });
 
     if (!user) {
       res.status(404).send("User not found");
@@ -71,7 +72,7 @@ router.get("/users/get/:userName", auth, async (req, res) => {
 });
 
 //Delete your profile
-router.delete("/users/me", auth, async (req, res) => {
+router.delete("/users/me", auth, clearCache, async (req, res) => {
   try {
     await req.user.remove();
     //Send cancelation email
@@ -84,7 +85,7 @@ router.delete("/users/me", auth, async (req, res) => {
 
 //Update user
 //Note : pictures are updated in diffrent routes
-router.patch("/users/me", auth, async (req, res) => {
+router.patch("/users/me", auth, clearCache, async (req, res) => {
   const updates = Object.keys(req.body);
   const allowedUpdates = ["userName", "email", "password", "gender"];
   const allowed = updates.every((update) => allowedUpdates.includes(update));
@@ -107,6 +108,7 @@ router.patch("/users/me", auth, async (req, res) => {
 router.post(
   "/users/me/profilePicture",
   auth,
+  clearCache,
   uploadPhoto.single("profilePicture"),
   async (req, res) => {
     req.user.profilePict = await sharp(req.file.buffer)
@@ -135,6 +137,7 @@ router.post(
 router.patch(
   "/users/me/profilePicture",
   auth,
+  clearCache,
   uploadPhoto.single("profilePicture"),
   async (req, res) => {
     req.user.profilePict = await sharp(req.file.buffer)
@@ -163,7 +166,7 @@ router.get("/users/me/profilePicture", auth, async (req, res) => {
   const { profilePict } = await User.findOne(
     { _id: req.user._id },
     { profilePict: 1 }
-  );
+  ).cache({ key: req.user._id });
 
   if (!profilePict) return res.status(404).send();
 
@@ -176,7 +179,7 @@ router.get("/users/:id/profilePicture", auth, async (req, res) => {
   const { profilePict } = await User.findOne(
     { _id: req.params.id },
     { profilePict: 1 }
-  );
+  ).cache({ key: req.user._id });
 
   if (!profilePict) return res.status(404).send();
 
@@ -189,6 +192,7 @@ router.get("/users/:id/profilePicture", auth, async (req, res) => {
 router.post(
   "/users/me/backgroundPicture",
   auth,
+  clearCache,
   uploadPhoto.single("backgroundPicture"),
   async (req, res) => {
     req.user.backgroundPict = await sharp(req.file.buffer).jpeg().toBuffer();
@@ -214,6 +218,7 @@ router.post(
 router.patch(
   "/users/me/backgroundPicture",
   auth,
+  clearCache,
   uploadPhoto.single("backgroundPicture"),
   async (req, res) => {
     req.user.backgroundPict = await sharp(req.file.buffer).jpeg().toBuffer();
@@ -241,7 +246,7 @@ router.get("/users/me/backgroundPicture", auth, async (req, res) => {
   const { backgroundPict } = await User.findOne(
     { _id: req.user._id },
     { backgroundPict: 1 }
-  );
+  ).cache({ key: req.user._id });
 
   if (!backgroundPict) return res.status(404).send();
 
@@ -254,7 +259,7 @@ router.get("/users/:id/backgroundPicture", auth, async (req, res) => {
   const { backgroundPict } = await User.findOne(
     { _id: req.params.id },
     { backgroundPict: 1 }
-  );
+  ).cache({ key: req.user._id });
 
   if (!backgroundPict) return res.status(404).send();
 

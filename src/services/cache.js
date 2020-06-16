@@ -46,8 +46,8 @@ mongoose.Query.prototype.exec = async function () {
   }
 };
 
-const clearCache = function (Primarykey) {
-  client.del(JSON.stringify(Primarykey));
+const clearCache = function (key) {
+  client.del(JSON.stringify(key));
 };
 
 module.exports = {
