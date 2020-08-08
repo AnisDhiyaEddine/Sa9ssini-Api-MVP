@@ -1,6 +1,7 @@
 const express = require("express");
 require("./db/mongoose"); //Connect to the database
 //Passport setup for further
+const keys = require("../config/keys");
 
 const app = express();
 const userRouter = require("./routers/user");
@@ -17,7 +18,7 @@ app.use(express.json()); //Incoming requests are objects ...  function
 app.use(
   cookieSession({
     maxAge: 24 * 60 * 60 * 1000,
-    keys: [process.env.cookieSessionKey],
+    keys: [keys.cookieKey],
   })
 );
 

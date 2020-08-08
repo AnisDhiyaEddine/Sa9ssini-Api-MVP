@@ -6,7 +6,7 @@ const auth = require("../middlware/auth");
 const cache = require("../services/cache");
 const clearCache = require("../middlware/clearCache");
 
-router.post("/chats", auth, clearCache, async (req, res) => {
+router.post("/api/chats", auth, clearCache, async (req, res) => {
   const { user_01, user_02 } = req.body;
   const chat = new Chat({
     user_01,
@@ -29,7 +29,7 @@ router.post("/chats", auth, clearCache, async (req, res) => {
   }
 });
 
-router.get("/chats", auth, async (req, res) => {
+router.get("/api/chats", auth, async (req, res) => {
   try {
     const chats = await Chat.find({
       $or: [{ user_01: req.user._id }, { user_02: req.user._id }],
@@ -41,20 +41,25 @@ router.get("/chats", auth, async (req, res) => {
   }
 });
 
-router.post("/chats/:chat_id/messages", auth, clearCache, async (req, res) => {
-  const message = new Message({
-    ...req.body,
-    chat: req.params.chat_id,
-  });
-  try {
-    await message.save();
-    res.status(201).send(message);
-  } catch (error) {
-    res.status(500).send(error);
+router.post(
+  "/api/chats/:chat_id/messages",
+  auth,
+  clearCache,
+  async (req, res) => {
+    const message = new Message({
+      ...req.body,
+      chat: req.params.chat_id,
+    });
+    try {
+      await message.save();
+      res.status(201).send(message);
+    } catch (error) {
+      res.status(500).send(error);
+    }
   }
-});
+);
 
-router.get("/chats/:chat_id/messages", auth, async (req, res) => {
+router.get("/api/chats/:chat_id/messages", auth, async (req, res) => {
   try {
     const messages = await Message.find({ chat: req.params.chat_id }).cache({
       key: req.user._id,

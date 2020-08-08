@@ -3,10 +3,10 @@ const validator = require("validator");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Skill = require("../models/skill");
-
+const keys = require("../../config/test");
 const userSchema = new mongoose.Schema(
   {
-    githubId: {
+    googleId: {
       type: String,
     },
     linkedinId: {
@@ -88,7 +88,7 @@ userSchema.pre("remove", function (next) {
 
 userSchema.methods.generateAuthToken = async function () {
   const user = this;
-  const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_SECRET);
+  const token = jwt.sign({ _id: user._id.toString() }, keys.jwtSecret);
   user.tokens.push({ token });
   return token;
 };

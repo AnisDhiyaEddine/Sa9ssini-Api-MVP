@@ -21,17 +21,20 @@ const { setupDatabase } = require("./factories/databaseSetupFactory");
 test("userSuite", () => {});
 
 //Setting up the database before each unit test
-beforeEach(setupDatabase)
+beforeEach(setupDatabase);
 
 //Testing the signup unit
 //----------------------------------------------------------
 test("Signup a new user", async () => {
   const usertest = {
-    userName: "Test UserName",  
+    userName: "Test UserName",
     email: "test@gmail.com",
     password: "testHashed",
   };
-  const response = await request(app).post("/auth/signup").send(usertest).expect(201);
+  const response = await request(app)
+    .post("/auth/signup")
+    .send(usertest)
+    .expect(201);
 
   //Assert that the database was updated
   const user = await User.findById(response.body.user._id);
@@ -50,7 +53,7 @@ test("Signup a new user", async () => {
 
 //testing the login unit
 //----------------------------------------------------------
- 
+
 //Login
 
 test("login a user", async () => {
@@ -113,16 +116,16 @@ test("logout all", async () => {
 //get authenticated user                ...Your profile
 test("get authenticated user", async () => {
   await request(app)
-    .get("/users/me")
+    .get("/api/users/me")
     .set("Authorization", `Bearer ${userOne.tokens[0].token}`)
     .send()
     .expect(200);
 });
 
-//authentication failure
+//api/authentication failure
 test('shouldn"t get unauthenticated user', async () => {
   await request(app)
-    .get("/users/me")
+    .get("/api/users/me")
     .set("Authorization", `Bearer notoken`)
     .send()
     .expect(401);
@@ -132,7 +135,7 @@ test('shouldn"t get unauthenticated user', async () => {
 
 test("get other user profile", async () => {
   const response = await request(app)
-    .get(`/users/${userTwoId}`)
+    .get(`/api/users/${userTwoId}`)
     .set("Authorization", `Bearer ${userOne.tokens[0].token}`)
     .send()
     .expect(200);
@@ -143,7 +146,7 @@ test("get other user profile", async () => {
 //Get other user profile failure
 test("get other user profile failure", async () => {
   const response = await request(app)
-    .get(`/users/invalidId`)
+    .get(`/api/users/invalidId`)
     .set("Authorization", `Bearer ${userOne.tokens[0].token}`)
     .expect(500);
 });
@@ -152,7 +155,7 @@ test("get other user profile failure", async () => {
 //----------------------------------------------------------
 test("delete authenticated user", async () => {
   const response = await request(app)
-    .delete("/users/me")
+    .delete("/api/users/me")
     .set("Authorization", `Bearer ${userOne.tokens[0].token}`)
     .send()
     .expect(200);
@@ -164,7 +167,7 @@ test("delete authenticated user", async () => {
 
 test("unable to delete unauthenticated user", async () => {
   await request(app)
-    .delete("/users/me")
+    .delete("/api/users/me")
     .set("Authorization", `Bea`)
     .send()
     .expect(401);
@@ -176,7 +179,7 @@ test("unable to delete unauthenticated user", async () => {
 //update your profile
 test("update your profile", async () => {
   const response = await request(app)
-    .patch("/users/me")
+    .patch("/api/users/me")
     .send({
       userName: "UserName updated",
       email: "emailupdated@mail.com",
@@ -195,7 +198,7 @@ test("update your profile", async () => {
 
 test("update profile failed", async () => {
   const response = await request(app)
-    .patch("/users/me")
+    .patch("/api/users/me")
     .send({
       _id: "objectUpdated", //Not allowed executed first
     })
@@ -208,7 +211,7 @@ test("update profile failed", async () => {
 
 test("Upload a profilePicture", async () => {
   await request(app)
-    .post("/users/me/profilePicture")
+    .post("/api/users/me/profilePicture")
     .set("Authorization", `Bearer ${userOne.tokens[0].token}`)
     .attach("profilePicture", "tests/fixtures/test-pic.jpg")
     .expect(200);
@@ -220,7 +223,7 @@ test("Upload a profilePicture", async () => {
 
 test("Upload a background picture", async () => {
   const response = await request(app)
-    .post("/users/me/backgroundPicture")
+    .post("/api/users/me/backgroundPicture")
     .set("Authorization", `Bearer ${userOne.tokens[0].token}`)
     .attach("backgroundPicture", "tests/fixtures/test-pic.jpg")
     .expect(200);
@@ -232,7 +235,7 @@ test("Upload a background picture", async () => {
 
 test("update profile picture", async () => {
   const response = await request(app)
-    .patch("/users/me/profilePicture")
+    .patch("/api/users/me/profilePicture")
     .set("Authorization", `Bearer ${userOne.tokens[0].token}`)
     .attach("profilePicture", "tests/fixtures/test-pic.jpg")
     .expect(200);
@@ -243,7 +246,7 @@ test("update profile picture", async () => {
 
 test("update background picture", async () => {
   const response = await request(app)
-    .patch("/users/me/backgroundPicture")
+    .patch("/api/users/me/backgroundPicture")
     .set("Authorization", `Bearer ${userOne.tokens[0].token}`)
     .attach("backgroundPicture", "tests/fixtures/test-pic.jpg")
     .expect(200);

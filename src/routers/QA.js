@@ -6,7 +6,7 @@ const auth = require("../middlware/auth");
 const cache = require("../services/cache");
 const clearCache = require("../middlware/clearCache");
 
-router.post("/questions/me", auth, clearCache, async (req, res) => {
+router.post("/api/questions/me", auth, clearCache, async (req, res) => {
   const question = new Question({
     ...req.body,
     answers: [],
@@ -26,7 +26,7 @@ router.post("/questions/me", auth, clearCache, async (req, res) => {
 });
 
 //get all posted questions Own posted questions !
-router.get("/questions/me", auth, async (req, res) => {
+router.get("/api/questions/me", auth, async (req, res) => {
   try {
     const postedQuestions = await Question.find({
       "owner._id": req.user._id,
@@ -42,7 +42,7 @@ router.get("/questions/me", auth, async (req, res) => {
 });
 
 //get question by ID
-router.get("/questions/:questionID", auth, async (req, res) => {
+router.get("/api/questions/:questionID", auth, async (req, res) => {
   try {
     const question = await Question.findById(req.params.questionID).cache({
       key: req.user._id,
@@ -59,7 +59,7 @@ router.get("/questions/:questionID", auth, async (req, res) => {
 
 //update question
 router.patch(
-  "/questions/me/:questionID",
+  "/api/questions/me/:questionID",
   auth,
   clearCache,
   async (req, res) => {
@@ -95,7 +95,7 @@ router.patch(
 
 //Add a question tag
 router.patch(
-  "/questions/me/:questionID/addTag",
+  "/api/questions/me/:questionID/addTag",
   auth,
   clearCache,
   async (req, res) => {
@@ -127,7 +127,7 @@ router.patch(
 
 //Delete question
 router.delete(
-  "/questions/me/:questionID",
+  "/api/questions/me/:questionID",
   auth,
   clearCache,
   async (req, res) => {
@@ -149,7 +149,7 @@ router.delete(
 
 //Add an answer
 router.patch(
-  "/questions/:questionID/addAnswer",
+  "/api/questions/:questionID/addAnswer",
   auth,
   clearCache,
   async (req, res) => {

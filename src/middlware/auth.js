@@ -1,29 +1,39 @@
-const jwt = require('jsonwebtoken');
-const User = require('../models/user');
-
+const jwt = require("jsonwebtoken");
+const User = require("../models/user");
+const keys = require("../../config/keys");
 const auth = async (req, res, next) => {
-    try {
-        if(req.user){ 
-            next()
-        }else{
-        let user;
-        const token = req.header("Authorization").replace("Bearer ", "");
-        const decoded = jwt.verify(token, process.env.JWT_SECRET)
-        user = await User.findOne({ _id: decoded._id, "tokens.token": token },
-            { userName: 1, email: 1, password: 1, gender: 1, tokens: 1, createdAt: 1, updatedAt: 1, imgUrl: 1, backgroundUrl: 1 });
-
-        if (!user) throw new Error();
-
-        req.token = token;
-        req.user = user;
-        next();
+  try {
+    if (req.user) {
+      next();
+    } else {
+      let user;
+      const token = req.header("Authorization").replace("Bearer ", "");
+      const decoded = jwt.verify(token, keys.jwtSecret);
+      user = await User.findOne(
+        { _id: decoded._id, "tokens.token": token },
+        {
+          userName: 1,
+          email: 1,
+          password: 1,
+          gender: 1,
+          tokens: 1,
+          createdAt: 1,
+          updatedAt: 1,
+          imgUrl: 1,
+          backgroundUrl: 1,
         }
+      );
 
+      if (!user) throw new Error();
+
+      req.token = token;
+      req.user = user;
+      next();
     }
-    catch (e) {
-        res.status(401).send({ error: "Please authenticate" })
+  } catch (e) {
+    res.status(401).send({ error: "Please authenticate" });
     //  res.redirect('/login')
-    }
-}
+  }
+};
 
 module.exports = auth;

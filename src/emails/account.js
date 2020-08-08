@@ -1,17 +1,17 @@
 var nodemailer = require("nodemailer");
-
+let keys = require("../../config/keys");
 let transporter = nodemailer.createTransport({
   //  service: "gmail",
   service: "Gmail",
   auth: {
-    user: process.env.ADMIN,
-    pass: process.env.PASSWORD,
+    user: keys.admin,
+    pass: keys.password,
   },
 });
 
 const sendWelcomeEmail = async ({ email, userName }) => {
   let mailOptions = {
-    from: process.env.ADMIN,
+    from: keys.admin,
     to: email,
     subject: "Hello",
     test: `Hi ${userName}!
@@ -29,7 +29,7 @@ const sendWelcomeEmail = async ({ email, userName }) => {
 
 const sendCancelationEmail = async ({ email, UserName }) => {
   let mailOptions = {
-    from: process.env.ADMIN,
+    from: keys.admin,
     to: email,
     subject: "customize later",
     test: `customize later`,

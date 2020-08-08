@@ -2,7 +2,7 @@ const passport = require("passport");
 const GitHubStrategy = require("passport-github").Strategy;
 const LinkedinStrategy = require("passport-linkedin-oauth2").Strategy;
 const User = require("../models/user");
-
+const keys = require("../../config/keys");
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });
@@ -17,8 +17,8 @@ passport.use(
   new GitHubStrategy(
     {
       // options for github strategy
-      clientID: process.env.githubClientId,
-      clientSecret: process.env.githubClientSecret,
+      clientID: keys.githubClientID,
+      clientSecret: keys.githubClientSecret,
       callbackURL: "/auth/github/redirect",
     },
     async (accessToken, refreshToken, profile, done) => {
@@ -35,6 +35,7 @@ passport.use(
             email: "generic@gmail.com",
             password: "generic",
             gender: "not specific",
+            imgUrl: profile._json.avatar_url,
           });
           user.save();
           done(null, user);
@@ -50,28 +51,31 @@ passport.use(
   new LinkedinStrategy(
     {
       // options for linkedin strategy
-      clientID: process.env.linkedClientId,
-      clientSecret: process.env.linkedClientSecret,
+      clientID: keys.linkedinClientID,
+      clientSecret: keys.linkedinClientSecret,
       callbackURL: "/auth/linkedin/redirect",
+      scope: ["r_liteprofile"],
+      state: true,
     },
-    async (accessToken, refreshToken, r_liteprofile, done) => {
+    async (accessToken, refreshToken, profile, done) => {
       //check if user exists
       let user;
 
       try {
-        user = await User.findOne({ linkedinId: r_liteprofile.id });
+        user = await User.findOne({ linkedinId: profile.id });
 
         if (user) {
           done(null, user);
         } else {
           user = new User({
-            userName: r_liteprofile.displayName,
-            imgUrl: r_liteprofile._json.profilePicture.displayImage,
-            linkedinId: r_liteprofile.id,
+            userName: profile.displayName,
+            imgUrl: profile.photos[profile.photos.length - 1].value,
+            linkedinId: profile.id,
             email: "generic@gmail.com",
             password: "generic",
             gender: "not specific",
           });
+          console.log(profile);
           user.save();
           done(null, user);
         }

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="../styling/register.css">
+    <title>Register</title>
+  </head>
+  <body>
+        <div class="modal modal-login">
+          <div class="modal-login__header">
+            <h3>Signup</h3>
+            <span class="modal-login__close">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                x="0px"
+                y="0px"
+                width="48"
+                height="48"
+                viewBox="0 0 172 172"
+                style=" fill:#000000;"
+              >
+                <g
+                  fill="none"
+                  fill-rule="nonzero"
+                  stroke="none"
+                  stroke-width="1"
+                  stroke-linecap="butt"
+                  stroke-linejoin="miter"
+                  stroke-miterlimit="10"
+                  stroke-dasharray=""
+                  stroke-dashoffset="0"
+                  font-family="none"
+                  font-weight="none"
+                  font-size="none"
+                  text-anchor="none"
+                  style="mix-blend-mode: normal"
+                >
+                  <path d="M0,172v-172h172v172z" fill="none"></path>
+                  <g fill="#cccccc">
+                    <path
+                      d="M49.5575,44.72l-4.8375,4.8375l36.55,36.4425l-36.55,36.4425l4.8375,4.8375l36.6575,-36.4425l36.55,36.4425l4.8375,-4.8375l-36.55,-36.4425l36.55,-36.4425l-4.8375,-4.8375l-36.55,36.4425z"
+                    ></path>
+                  </g>
+                </g>
+              </svg>
+            </span>
+          </div>
+          <div class="modal-login__content">
+              <form action="#" class="login-form">
+                <label for="name">Email</label>
+                <input type="text" placeholder="enter your email" name="name" class="login-form__name" />
+                <label for="number">Password</label>
+                <input type="tel" placeholder="enter your password"
+                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" name="number" class="login-form__number">
+                <div class="control-group">
+                  <label class="control control--checkbox">Remembre me
+                    <input type="checkbox" />
+                    <div class="control__indicator">
+                    </div>
+                  </label>
+                  <a href="#">forget password!</a>
+                </div>
+                <button class="login-form__number">Signup</button>
+              </form>
+              <div class="modal-separator">
+                <div class="modal-separator__text">
+                  Or
+                </div>
+              </div>
+              <div class="social-block">
+                <label for="social">Signup with</label>
+                <button class="social-block__github">
+                  <a style="text-decoration: inherit;" href="http://localhost:3000/auth/github">github</a>
+                </button>
+                <button class="social-block__linkedin">
+                  <a style="text-decoration: inherit;" href="http://localhost:3000/auth/linkedin">Linkedin</a>
+                </button>
+              </div>
+              </div>
+          </div>
+        </div>
+  </body>
+</html>

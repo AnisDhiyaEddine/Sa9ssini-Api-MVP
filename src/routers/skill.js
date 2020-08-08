@@ -5,7 +5,7 @@ const User = require("../models/user");
 const auth = require("../middlware/auth");
 const clearCache = require("../middlware/clearCache");
 //Add a skill
-router.post("/skills", auth, clearCache, async (req, res) => {
+router.post("/api/skills", auth, clearCache, async (req, res) => {
   const skill = new Skill({
     ...req.body,
     owner: {
@@ -26,8 +26,8 @@ router.post("/skills", auth, clearCache, async (req, res) => {
 
 //get it's own skills
 
-router.get("/skills/me", auth, async (req, res) => {
-  //{{url}}/skills/me?sortBy=property:asc||desc
+router.get("/api/skills/me", auth, async (req, res) => {
+  //{{url}}/api/skills/me?sortBy=property:asc||desc
   const sort = {};
   if (req.query.sortBy) {
     const parts = req.query.sortBy.split(":");
@@ -46,8 +46,8 @@ router.get("/skills/me", auth, async (req, res) => {
   }
 });
 
-router.get("/skills/user/:id", auth, async (req, res) => {
-  //{{url}}/skills/me?sortBy=property:asc||desc
+router.get("/api/skills/user/:id", auth, async (req, res) => {
+  //{{url}}/api/skills/me?sortBy=property:asc||desc
   const user = await User.findOne({ _id: req.params.id }).cache({
     key: req.user._id,
   });
@@ -72,7 +72,7 @@ router.get("/skills/user/:id", auth, async (req, res) => {
 });
 
 //Update a skill by it's id    ...Owner update
-router.patch("/skills/me/:id", auth, clearCache, async (req, res) => {
+router.patch("/api/skills/me/:id", auth, clearCache, async (req, res) => {
   const _id = req.params.id; //Skill id
   const updates = Object.keys(req.body);
   const allowedUpdates = ["description"]; //skill a discuter "Crédibilité"
@@ -103,7 +103,7 @@ router.patch("/skills/me/:id", auth, clearCache, async (req, res) => {
 });
 
 //Delete a skill   ...owner delete
-router.delete("/skills/:id", auth, clearCache, async (req, res) => {
+router.delete("/api/skills/:id", auth, clearCache, async (req, res) => {
   const _id = req.params.id;
 
   try {
@@ -123,7 +123,7 @@ router.delete("/skills/:id", auth, clearCache, async (req, res) => {
 //--------------------------------------------------------------------------
 //A modifier
 //Evaluate a skill
-router.post("/skills/:id/rate", auth, clearCache, async (req, res) => {
+router.post("/api/skills/:id/rate", auth, clearCache, async (req, res) => {
   try {
     const skill = await Skill.findOne({ _id: req.params.id }).cache({
       key: req.user._id,
@@ -166,7 +166,7 @@ router.post("/skills/:id/rate", auth, clearCache, async (req, res) => {
 //--------------------------------------------------------------------------
 
 //Search of skill by name;
-router.get("/skills/:skill", auth, async (req, res) => {
+router.get("/api/skills/:skill", auth, async (req, res) => {
   try {
     const sorted = {};
 
