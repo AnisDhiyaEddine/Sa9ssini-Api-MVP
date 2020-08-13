@@ -32,7 +32,4 @@ app.use(skillRouter);
 app.use(chatRouter);
 app.use(QARouter);
 
-app.set("view engine", "html");
-app.engine("html", require("hbs").__express);
-
 module.exports = app;

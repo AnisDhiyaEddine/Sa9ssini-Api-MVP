@@ -6,7 +6,7 @@ const Skill = require("../models/skill");
 const keys = require("../../config/test");
 const userSchema = new mongoose.Schema(
   {
-    googleId: {
+    githubId: {
       type: String,
     },
     linkedinId: {
@@ -15,7 +15,6 @@ const userSchema = new mongoose.Schema(
     userName: {
       type: String,
       trim: true,
-      unique: true,
     },
     email: {
       type: String,

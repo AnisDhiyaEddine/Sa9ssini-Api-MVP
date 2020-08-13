@@ -32,7 +32,7 @@ test("Signup a new user", async () => {
     password: "testHashed",
   };
   const response = await request(app)
-    .post("/auth/signup")
+    .post("/api/auth/signup")
     .send(usertest)
     .expect(201);
 
@@ -58,7 +58,7 @@ test("Signup a new user", async () => {
 
 test("login a user", async () => {
   const response = await request(app)
-    .post("/auth/login")
+    .post("/api/auth/login")
     .send({
       email: userOne.email,
       password: userOne.password,
@@ -75,7 +75,7 @@ test("login a user", async () => {
 //Login fails
 test("login failure", async () => {
   await request(app)
-    .post("/auth/login")
+    .post("/api/auth/login")
     .send({
       email: "failed@gmail.com",
       password: "randomizeOOO",
@@ -88,7 +88,7 @@ test("login failure", async () => {
 
 test("simple logout", async () => {
   const response = await request(app)
-    .post("/auth/logout")
+    .post("/api/auth/logout")
     .set("Authorization", `Bearer ${userOne.tokens[0].token}`)
     .send()
     .expect(200);
@@ -100,7 +100,7 @@ test("simple logout", async () => {
 
 test("logout all", async () => {
   const response = await request(app)
-    .post("/auth/logoutAll")
+    .post("/api/auth/logoutAll")
     .set("Authorization", `Bearer ${userTwo.tokens[0].token}`)
     .send()
     .expect(200);

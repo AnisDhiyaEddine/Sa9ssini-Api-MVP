@@ -9,7 +9,7 @@ router.get("/auth", async (req, res) => {
 });
 
 //Basiclly SignUp
-router.post("/auth/signup", async (req, res) => {
+router.post("/api/auth/signup", async (req, res) => {
   const user = new User(req.body);
   const profileDist = join(__dirname, "../helpers/default_avatar.jpg");
   const backgroundDist = join(__dirname, "../helpers/background.jpeg");
@@ -39,7 +39,7 @@ router.post("/auth/signup", async (req, res) => {
 //Done ...
 
 //Login
-router.post("/auth/login", async (req, res) => {
+router.post("/api/auth/login", async (req, res) => {
   try {
     const user = await User.findBycredentials(
       req.body.email,
@@ -54,27 +54,28 @@ router.post("/auth/login", async (req, res) => {
 });
 
 //Logout
-router.post("/auth/logout", auth, async (req, res) => {
+router.get("/api/auth/logout", auth, async (req, res) => {
   try {
     //check if the connection was established by third party service
     if (req.user.githubId || req.user.linkedinId) {
       const user = req.user;
       req.logout();
-      res.status(200).send(user);
+      res.redirect("/");
     } else {
       req.user.tokens = req.user.tokens.filter(
         (token) => token.token !== req.token
       );
       await req.user.save();
-      res.send(req.user);
+      res.redirect("/");
     }
     // We did not pop the last element because we may login with multiple devices
   } catch (e) {
+    console.log(e);
     res.status(500).send();
   }
 });
 
-router.post("/auth/logoutAll", auth, async (req, res) => {
+router.post("/api/auth/logoutAll", auth, async (req, res) => {
   try {
     if (req.user.githubId || req.user.linkedinId) {
       const user = req.user;

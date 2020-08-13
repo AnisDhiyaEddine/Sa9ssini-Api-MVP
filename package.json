@@ -4,12 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "cross-env NODE_ENV=production nodemon src/index.js",
+    "server": "cross-env NODE_ENV=development nodemon src/index.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"yarn server\" \"yarn client\"",
     "chrome": "google-chrome  --user-data-dir=”/var/tmp/Chrome” --disable-web-security",
-    "server": "env-cmd -f ./config/dev.env nodemon src/index.js",
-    "client": "parcel client/index.html",
-    "dev": "concurrently 'yarn server' 'yarn client'",
-    "test": "env-cmd -f ./config/test.env jest --watch --runInBand"
+    "webhook": "ngrok http 3000",
+    "test": "jest --watch --runInBand"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "client/"
+    ]
   },
   "jest": {
     "testEnvironment": "node"
@@ -21,6 +27,7 @@
     "bcrypt": "^3.0.7",
     "concurrently": "^5.2.0",
     "cookie-session": "^1.4.0",
+    "cross-env": "^7.0.2",
     "express": "^4.17.1",
     "hbs": "^4.1.1",
     "jsonwebtoken": "^8.5.1",

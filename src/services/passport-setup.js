@@ -37,7 +37,7 @@ passport.use(
             gender: "not specific",
             imgUrl: profile._json.avatar_url,
           });
-          user.save();
+          await user.save();
           done(null, user);
         }
       } catch (error) {
@@ -75,7 +75,6 @@ passport.use(
             password: "generic",
             gender: "not specific",
           });
-          console.log(profile);
           user.save();
           done(null, user);
         }
