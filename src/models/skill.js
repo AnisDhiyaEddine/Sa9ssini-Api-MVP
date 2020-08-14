@@ -13,7 +13,7 @@ const skillSchema = new mongoose.Schema(
     description: {
       type: String,
       trim: true,
-      required: true,
+      //    required: true,
     },
     owner: {
       _id: {

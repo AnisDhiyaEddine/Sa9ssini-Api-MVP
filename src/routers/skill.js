@@ -11,7 +11,6 @@ router.post("/api/skills", auth, clearCache, async (req, res) => {
     owner: {
       _id: req.user._id,
       userName: req.user.userName,
-      imgUrl: `/users/${req.user._id}/profilePicture`,
     },
   });
 
