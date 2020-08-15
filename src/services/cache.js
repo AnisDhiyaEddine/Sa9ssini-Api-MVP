@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
-const redis = require("redis");
+/* const redis = require("redis");
 const util = require("util");
-const redisUrl = "redis://127.0.0.1:6379";
-const client = redis.createClient(redisUrl);
+const redisUrl = "redis://127.0.0.1:6379"; */
+/* const client = redis.createClient(redisUrl);
 client.hget = util.promisify(client.hget);
-client.del = util.promisify(client.del);
+client.del = util.promisify(client.del); */
 const exec = mongoose.Query.prototype.exec;
 
 mongoose.Query.prototype.cache = function (options = {}) {
@@ -24,9 +24,9 @@ mongoose.Query.prototype.exec = async function () {
       })
     );
     // check if the data is on redis server
-    const cachedValue = await client.hget(this.Primarykey, key);
+    // const cachedValue = await client.hget(this.Primarykey, key);
     // if yes :
-    if (cachedValue) {
+    /*  if (cachedValue) {
       //we have to return a mongooseDocument
       //two gotchas
       //1- we convert the cached value ..partial solution
@@ -37,17 +37,17 @@ mongoose.Query.prototype.exec = async function () {
         : new this.model(doc);
       return doc;
     }
-
+ */
     // otherwise :
     const result = await exec.apply(this, arguments);
-    client.hset(this.Primarykey, key, JSON.stringify(result), "EX", 900); //cache data for 15min and clear it automatically
+    // client.hset(this.Primarykey, key, JSON.stringify(result), "EX", 900); //cache data for 15min and clear it automatically
     // result is a mongoose document
     return result;
   }
 };
 
 const clearCache = function (key) {
-  client.del(JSON.stringify(key));
+  // client.del(JSON.stringify(key));
 };
 
 module.exports = {

@@ -32,8 +32,8 @@ app.use(skillRouter);
 app.use(chatRouter);
 app.use(QARouter);
 
-if (process.env.NODE_ENV === "production") {
-  console.log("Hi we're in business");
+if (process.env.NODE_ENV === "development") {
+  console.log("Hi we're in buisiness");
   let path = require("path");
   app.use(express.static(path.join(__dirname, "build")));
   app.get("*", (req, res) => {
