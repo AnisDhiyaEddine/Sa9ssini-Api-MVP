@@ -4,9 +4,7 @@ const auth = require("../middlware/auth");
 const User = require("../models/user");
 const { join } = require("path");
 const sharp = require("sharp");
-router.get("/auth", async (req, res) => {
-  res.render("authenticate");
-});
+router.get("/auth", async (req, res) => {});
 
 //Basiclly SignUp
 router.post("/api/auth/signup", async (req, res) => {
@@ -105,6 +103,7 @@ router.get(
   "/auth/github/callback",
   passport.authenticate("github"),
   (req, res) => {
+    console.log("authenticated and trying to redirect");
     res.redirect("/addInfos");
   }
 );
@@ -122,6 +121,7 @@ router.get(
   "/auth/linkedin/callback",
   passport.authenticate("linkedin"),
   (req, res) => {
+    console.log("authenticated and trying to redirect");
     res.redirect("/addInfos");
     //simple use res.send(req.user)
   }
