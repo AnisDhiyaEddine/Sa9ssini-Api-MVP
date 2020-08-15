@@ -19,7 +19,7 @@ passport.use(
       // options for github strategy
       clientID: keys.githubClientID,
       clientSecret: keys.githubClientSecret,
-      callbackURL: "/auth/github/redirect",
+      callbackURL: "/auth/github/callback",
     },
     async (accessToken, refreshToken, profile, done) => {
       // check if user is registered
@@ -53,7 +53,7 @@ passport.use(
       // options for linkedin strategy
       clientID: keys.linkedinClientID,
       clientSecret: keys.linkedinClientSecret,
-      callbackURL: "/auth/linkedin/redirect",
+      callbackURL: "/auth/linkedin/callback",
       scope: ["r_liteprofile"],
       state: true,
     },
