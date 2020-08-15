@@ -102,7 +102,7 @@ router.get(
 
 // callback route for github to redirect to
 router.get(
-  "/auth/github/redirect",
+  "/auth/github/callback",
   passport.authenticate("github"),
   (req, res) => {
     res.redirect("/addInfos");
@@ -119,7 +119,7 @@ router.get(
 
 // callback route for linkedin to redirect to
 router.get(
-  "/auth/linkedin/redirect",
+  "/auth/linkedin/callback",
   passport.authenticate("linkedin"),
   (req, res) => {
     res.redirect("/addInfos");
