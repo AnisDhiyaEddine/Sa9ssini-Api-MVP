@@ -33,9 +33,9 @@ app.use(chatRouter);
 app.use(QARouter);
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("build"));
-
+  console.log("Hi we're in buisiness");
   let path = require("path");
+  app.use(express.static(path.join(__dirname, "build")));
   app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "build", "index.html"));
   });
