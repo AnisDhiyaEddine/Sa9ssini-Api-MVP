@@ -33,7 +33,7 @@ app.use(chatRouter);
 app.use(QARouter);
 
 if (process.env.NODE_ENV === "production") {
-  console.log("Hi we're in buisiness");
+  console.log("Hi we're in business");
   let path = require("path");
   app.use(express.static(path.join(__dirname, "build")));
   app.get("*", (req, res) => {
