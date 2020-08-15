@@ -1,7 +1,9 @@
 node_modules
+client
+tests
+temp
 dev.js
 test.js
 test.env
 dist
-client
 Default
