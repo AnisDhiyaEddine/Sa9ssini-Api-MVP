@@ -32,7 +32,7 @@ app.use(skillRouter);
 app.use(chatRouter);
 app.use(QARouter);
 
-if (process.env.NODE_ENV === "development") {
+if (process.env.NODE_ENV === "production") {
   let path = require("path");
 
   app.use(express.static("build"));
