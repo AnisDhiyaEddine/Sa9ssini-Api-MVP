@@ -38,11 +38,16 @@ const userSchema = new mongoose.Schema(
       trim: true,
       default: "not specific",
       validate(value) {
-        if (!["male", "female", "not specific"].includes(value)) {
+        if (!["Male", "Female", "not specific"].includes(value)) {
           throw new Error("Error gender");
         }
       },
     },
+    university: { type: String, trim: true, default: "", lowercase: true },
+    city: { type: String, trim: true, default: "", lowercase: true },
+    phoneNbr: Number,
+    availbleAt: { type: String, default: "" },
+    about: { type: String, default: "" },
     tokens: [
       {
         token: {

@@ -86,8 +86,19 @@ router.delete("/api/users/me", auth, clearCache, async (req, res) => {
 //Update user
 //Note : pictures are updated in diffrent routes
 router.patch("/api/users/me", auth, clearCache, async (req, res) => {
+  console.log("trying to update");
   const updates = Object.keys(req.body);
-  const allowedUpdates = ["userName", "email", "password", "gender"];
+  const allowedUpdates = [
+    "userName",
+    "email",
+    "password",
+    "gender",
+    "university",
+    "city",
+    "phoneNbr",
+    "availbleAt",
+    "about",
+  ];
   const allowed = updates.every((update) => allowedUpdates.includes(update));
   //allowed true if every update is included in the allowedUpdates arr
   if (!allowed) {
@@ -99,6 +110,7 @@ router.patch("/api/users/me", auth, clearCache, async (req, res) => {
     await req.user.save();
     res.send(req.user);
   } catch (error) {
+    console.log(error);
     res.status(500).send(error);
   }
 });
