@@ -104,7 +104,7 @@ router.get(
   passport.authenticate("github"),
   (req, res) => {
     console.log("authenticated and trying to redirect");
-    res.redirect("/addInfos");
+    res.redirect("/Profile");
   }
 );
 
@@ -122,7 +122,7 @@ router.get(
   passport.authenticate("linkedin"),
   (req, res) => {
     console.log("authenticated and trying to redirect");
-    res.redirect("/addInfos");
+    res.redirect("/Profile");
     //simple use res.send(req.user)
   }
 );
